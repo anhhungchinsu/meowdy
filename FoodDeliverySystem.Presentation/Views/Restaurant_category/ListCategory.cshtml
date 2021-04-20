@@ -1,0 +1,11 @@
+﻿@model IEnumerable<FoodDeliverySystem.Models.DBContext.Restaurant_category>
+<a href="/ha-noi/danh-sach-dia-diem-giao-tan-noi">
+    <span class="category-item ">All</span>
+</a>
+@foreach (var item in Model)
+{
+    <a href="#">
+        <span class="category-item ">@item.restaurant_category_name</span>
+    </a>
+}
+

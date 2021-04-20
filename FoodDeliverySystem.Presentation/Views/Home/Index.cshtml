@@ -1,0 +1,329 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    <div class="now-banner" style="position:fixed; top:70px">
+        <div class="container-cus">
+            <div class="now-search">
+                <div>
+                    <h1 class="title">Đặt Đồ ăn, giao hàng từ 20'...</h1>
+                    <div class="local">có 25398 địa điểm ở Hà Nội từ 00:00 - 23:59</div>
+                </div>
+                <div class="form-search">
+                    <div class="input-group">
+                        <input type="text" id="txtSearchHome" placeholder="Tìm địa điểm, món ăn, địa chỉ..." value="">
+                        <a href="/ha-noi/danh-sach-dia-diem-giao-tan-noi?q=">
+                            <button type="button" class="btn btn-search">
+                                <img class="icon-search-dark m-0" src="~/Assets/images/search-13-24.png" />
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="category-list-filter">
+                    @{Html.RenderAction("ListCategory", "Restaurant_category");}
+                </div>
+                <div>
+                    <div class="font18 mb-2 mt-3">
+                        Say my name!.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contain-main-home clearfix">
+        <div class="container-cus">
+            <div class="main-right-home">
+                <div class="now-list-restaurant deal-tab">
+                    <div class="title-wrapper">
+                        <h2 class="title">Ưu đãi</h2>
+                        <a class="view-all-deal" href="#">Xem tất cả</a>
+                    </div>
+                    <div id="deal-list-restaurant" class="list-restaurant">
+                        @{Html.RenderAction("ListDealRestaurant", "Restaurants");}
+                    </div>
+                    <div class="txt-center mt-2">
+                        <button class="btn-none btn-load-more link" id="Btn-More">
+                            <span>Xem thêm</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="now-list-restaurant collection collection-tab">
+                    <div class="title-wrapper">
+                        <h2 class="title">Bộ sưu tập</h2>
+                        <a class="view-all-deal" href="#">
+                            Xem tất cả
+                        </a>
+                    </div>
+                    <div class="list-restaurant">
+                        <div>
+                            <div class="item-restaurant">
+                                <a href="#" class="item-content">
+                                    <div class="img-restaurant">
+                                        <img src="https://images.foody.vn/delivery/collection/s320x200/image-62c7b562-210412233654.png" class="">
+                                    </div>
+                                    <div class="info-restaurant info-basic-res">
+                                        <h4 class="name-res" title="Deal xịn giảm 70k">Deal xịn giảm 70k</h4>
+                                        <div class="txt-blue font12">
+                                            200 địa điểm
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item-restaurant">
+                                <a href="#" class="item-content">
+                                    <div class="img-restaurant">
+                                        <img src="https://images.foody.vn/delivery/collection/s320x200/image-62c7b562-210412233654.png" class="">
+                                    </div>
+                                    <div class="info-restaurant info-basic-res">
+                                        <h4 class="name-res" title="Deal xịn giảm 70k">Deal xịn giảm 70k</h4>
+                                        <div class="txt-blue font12">
+                                            200 địa điểm
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item-restaurant">
+                                <a href="#" class="item-content">
+                                    <div class="img-restaurant">
+                                        <img src="https://images.foody.vn/delivery/collection/s320x200/image-62c7b562-210412233654.png" class="">
+                                    </div>
+                                    <div class="info-restaurant info-basic-res">
+                                        <h4 class="name-res" title="Deal xịn giảm 70k">Deal xịn giảm 70k</h4>
+                                        <div class="txt-blue font12">
+                                            200 địa điểm
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item-restaurant">
+                                <a href="#" class="item-content">
+                                    <div class="img-restaurant">
+                                        <img src="https://images.foody.vn/delivery/collection/s320x200/image-62c7b562-210412233654.png" class="">
+                                    </div>
+                                    <div class="info-restaurant info-basic-res">
+                                        <h4 class="name-res" title="Deal xịn giảm 70k">Deal xịn giảm 70k</h4>
+                                        <div class="txt-blue font12">
+                                            200 địa điểm
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item-restaurant">
+                                <a href="#" class="item-content">
+                                    <div class="img-restaurant">
+                                        <img src="https://images.foody.vn/delivery/collection/s320x200/image-62c7b562-210412233654.png" class="">
+                                    </div>
+                                    <div class="info-restaurant info-basic-res">
+                                        <h4 class="name-res" title="Deal xịn giảm 70k">Deal xịn giảm 70k</h4>
+                                        <div class="txt-blue font12">
+                                            200 địa điểm
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="item-restaurant">
+                                <a href="#" class="item-content">
+                                    <div class="img-restaurant">
+                                        <img src="https://images.foody.vn/delivery/collection/s320x200/image-62c7b562-210412233654.png" class="">
+                                    </div>
+                                    <div class="info-restaurant info-basic-res">
+                                        <h4 class="name-res" title="Deal xịn giảm 70k">Deal xịn giảm 70k</h4>
+                                        <div class="txt-blue font12">
+                                            200 địa điểm
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="now-list-restaurant now-list-restaurant-row home-tab">
+                    <div class="header-tab row align-items-center">
+                        <div class="col">
+                            <button class="item-tab active">
+                                Gần tôi
+                            </button>
+                            <button class="item-tab">
+                                Bán chạy
+                            </button>
+                            <button class="item-tab">
+                                Đánh giá
+                            </button>
+                            <button class="item-tab">
+                                Giao nhanh
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <select name="districId">
+                                <option value="-1">Chọn quận/ huyện</option>
+                                <option value="1">Ba Đình</option>
+                                <option value="2">Cầu Giấy</option>
+                                <option value="3">Đống Đa</option>
+                                <option value="4">Hà Đông</option>
+                                <option value="5">Hai Bà Trưng</option>
+                                <option value="6">Hoàn Kiếm</option>
+                                <option value="7">Hoàng Mai</option>
+                                <option value="8">Long Biên</option>
+                                <option value="9">Tây Hồ</option>
+                                <option value="10">Thanh Xuân</option>
+                                <option value="11">Gia Lâm</option>
+                                <option value="12">Hoài Đức</option>
+                                <option value="13">Thanh Trì</option>
+                                <option value="14">Thường Tín</option>
+                                <option value="15">Bắc Từ Liêm</option>
+                                <option value="16">Nam Từ Liêm</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="list-restaurant">
+                        <div class="item-restaurant">
+                            <a class="item-content" href="#">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <div class="img-restaurant">
+                                            <img src="https://images.foody.vn/res/g66/652809/prof/s280x175/foody-mobile-2-jpg-711-636281932110336615.jpg" class="">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="info-restaurant">
+                                            <div class="name-res">
+                                                Trà Sữa Tocotoco - Phố Nhổn
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="address-res mb-1">
+                                                        20 Phố Nhổn, Nam Từ Liêm, Hà Nội
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="content-promotion pt-1 pl-0 pb-0">
+                                                Giảm hết 40%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item-restaurant">
+                            <a class="item-content" href="#">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <div class="img-restaurant">
+                                            <img src="https://images.foody.vn/res/g66/652809/prof/s280x175/foody-mobile-2-jpg-711-636281932110336615.jpg" class="">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="info-restaurant">
+                                            <div class="name-res">
+                                                Trà Sữa Tocotoco - Phố Nhổn
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="address-res mb-1">
+                                                        20 Phố Nhổn, Nam Từ Liêm, Hà Nội
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="content-promotion pt-1 pl-0 pb-0">
+                                                Giảm hết 40%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item-restaurant">
+                            <a class="item-content" href="#">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <div class="img-restaurant">
+                                            <img src="https://images.foody.vn/res/g66/652809/prof/s280x175/foody-mobile-2-jpg-711-636281932110336615.jpg" class="">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="info-restaurant">
+                                            <div class="name-res">
+                                                Trà Sữa Tocotoco - Phố Nhổn
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="address-res mb-1">
+                                                        20 Phố Nhổn, Nam Từ Liêm, Hà Nội
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="content-promotion pt-1 pl-0 pb-0">
+                                                Giảm hết 40%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item-restaurant">
+                            <a class="item-content" href="#">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <div class="img-restaurant">
+                                            <img src="https://images.foody.vn/res/g66/652809/prof/s280x175/foody-mobile-2-jpg-711-636281932110336615.jpg" class="">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="info-restaurant">
+                                            <div class="name-res">
+                                                Trà Sữa Tocotoco - Phố Nhổn
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="address-res mb-1">
+                                                        20 Phố Nhổn, Nam Từ Liêm, Hà Nội
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="content-promotion pt-1 pl-0 pb-0">
+                                                Giảm hết 40%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item-restaurant">
+                            <a class="item-content" href="#">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <div class="img-restaurant">
+                                            <img src="https://images.foody.vn/res/g66/652809/prof/s280x175/foody-mobile-2-jpg-711-636281932110336615.jpg" class="">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="info-restaurant">
+                                            <div class="name-res">
+                                                Trà Sữa Tocotoco - Phố Nhổn
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="address-res mb-1">
+                                                        20 Phố Nhổn, Nam Từ Liêm, Hà Nội
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="content-promotion pt-1 pl-0 pb-0">
+                                                Giảm hết 40%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="txt-center mt-2">
+                        <button class="btn-none btn-load-more link">
+                            <span class="pr-1">Xem thêm</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
