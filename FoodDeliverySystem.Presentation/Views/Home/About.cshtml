@@ -1,6 +1,11 @@
-﻿@model IEnumerable<FoodDeliverySystem.Models.DBContext.Discount>
+﻿@{
+    ViewBag.Title = "Test";
+}
 
-@foreach (var item in Model)
-{
-    @item.discount_code
+@{
+    <button id="find-me">Show my location</button>
+    <br />
+
+    <div id="osm-map">
+    </div>
 }

@@ -10,7 +10,7 @@ namespace FoodDeliverySystem.BusinessLogicLayer.BaseServices
     public interface IGenericRepository <TEntity> where TEntity: class
     {
         IEnumerable<TEntity> GetAll();
-        TEntity GetById(int id);
+        TEntity GetById(short id);
         bool Add(TEntity entity);
         bool Update(TEntity entity);
         bool Delete(TEntity entity);

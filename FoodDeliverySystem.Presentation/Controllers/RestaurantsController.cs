@@ -1,16 +1,15 @@
-﻿using System;
+﻿using FoodDeliverySystem.BusinessLogicLayer.IServices;
+using FoodDeliverySystem.Common;
+using FoodDeliverySystem.Models.DBContext;
+using FoodDeliverySystem.Presentation.ViewModels;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using FoodDeliverySystem.BusinessLogicLayer.IServices;
-using FoodDeliverySystem.Models.DBContext;
 using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-using FoodDeliverySystem.Presentation.ViewModels;
-using Newtonsoft.Json;
-using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 
 namespace FoodDeliverySystem.Presentation.Controllers
 {
@@ -22,7 +21,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
         private readonly IDiscountRepository _discountRepository;
 
 
-        public RestaurantsController(IRestaurantRepository restaurantRepository, 
+        public RestaurantsController(IRestaurantRepository restaurantRepository,
             IDiscountDetailRepository discountDetailRepository,
             IDiscountRepository discountRepository)
         {
@@ -37,7 +36,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
             var distinctDiscountDetails = _discountDetailRepository.getDistincts();
             IEnumerable<Restaurant> listRestaurants = _restaurantRepository.GetAll().Where(item => distinctDiscountDetails.Any(x => x.discount_detail_user_id.Equals(item.restaurant_user_id)));
             var list = new List<RestaurantDetailViewModel>();
-            foreach(var item in listRestaurants)
+            foreach (var item in listRestaurants)
             {
                 var restaurantDetailViewModel = new RestaurantDetailViewModel()
                 {
@@ -70,18 +69,83 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 var count = list.Count();
                 var countData = count - (9 * restaurantCount);
                 var list2 = list.Where(x => x.Restaurant.restaurant_id <= countData && x.Restaurant.restaurant_id >= 1).OrderByDescending(x => x.Restaurant.restaurant_id).Take(9);
-
-                string rs = JsonConvert.SerializeObject(list2, Formatting.None);
-                string data = Regex.Replace(rs, @"\\r\\n", "");
-                string finaldata = Regex.Replace(data, @"\\""", "");
-                return Json(finaldata, JsonRequestBehavior.AllowGet);
-            } 
+                return Json(JsonFormatter.Format(list2), JsonRequestBehavior.AllowGet);
+            }
             catch (Exception e)
             {
-                return Json(new { 
+                return Json(new
+                {
                     success = false,
                     ex = e.Message
                 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ListNearRestaurant()
+        {
+            var listRestaurants = _restaurantRepository.GetAll().Where(p => p.restaurant_address.Contains("Bắc Từ Liêm"));
+            var list = new List<RestaurantDetailViewModel>();
+            foreach (var item in listRestaurants)
+            {
+                var restaurantDetailViewModel = new RestaurantDetailViewModel()
+                {
+                    Restaurant = item,
+                    Discount = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                };
+                list.Add(restaurantDetailViewModel);
+            }
+            var list2 = list.Take(6);
+            return PartialView(list2);
+        }
+
+        int pageSize = 2;
+        [HttpGet]
+        public JsonResult GetListRestaurantInLocation(string location, int? page)
+        {
+            try
+            {
+                var listRestaurants = _restaurantRepository.GetAll().Where(p => p.restaurant_address.Contains(location));
+                var list = new List<RestaurantDetailViewModel>();
+                foreach (var item in listRestaurants)
+                {
+                    var restaurantDetailViewModel = new RestaurantDetailViewModel()
+                    {
+                        Restaurant = item,
+                        Discount = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                    };
+                    list.Add(restaurantDetailViewModel);
+                }
+                if(page > 0)
+                {
+                    page = page;
+                }
+                else
+                {
+                    page = 1;
+                }
+                int start = (int)(page - 1) * pageSize;
+                ViewBag.pageCurrent = page;
+                int totalPage = list.Count();
+                float totalNumsize = (totalPage / (float)pageSize);
+                int numSize = (int)Math.Ceiling(totalNumsize);
+                ViewBag.numSize = numSize;
+                var list2 = list.OrderByDescending(x => x.Restaurant.restaurant_id).Skip(start).Take(pageSize);
+                return Json(new
+                {
+                    data = JsonFormatter.Format(list2),
+                    pageCurrent = page,
+                    numSize = numSize
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        ex = e.Message
+                    }, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 

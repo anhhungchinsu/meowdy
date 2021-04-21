@@ -48,6 +48,7 @@ namespace FoodDeliverySystem.Presentation
             container.RegisterType<IDiscountDetailRepository, DiscountDetailService>();
             container.RegisterType<IRestaurantRepository, RestaurantService>();
             container.RegisterType<IDiscountRepository, DiscountService>();
+            container.RegisterType<IUserRepository, UserService>();
         }
     }
 }

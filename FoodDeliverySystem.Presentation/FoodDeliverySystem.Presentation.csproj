@@ -157,6 +157,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Controllers\Restaurant_categoryController.cs" />
@@ -175,8 +176,19 @@
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\site.css" />
+    <Content Include="Assets\images\discount %281%29.jpeg" />
+    <Content Include="Assets\images\discount %282%29.jpeg" />
+    <Content Include="Assets\images\discount %283%29.jpeg" />
+    <Content Include="Assets\images\discount %284%29.jpeg" />
+    <Content Include="Assets\images\discount %285%29.jpeg" />
+    <Content Include="Assets\images\discount %286%29.jpeg" />
+    <Content Include="Assets\images\discount %287%29.jpeg" />
+    <Content Include="Assets\images\discount %288%29.jpeg" />
+    <Content Include="Assets\images\discount %289%29.jpeg" />
+    <Content Include="Assets\images\label-price.svg" />
     <Content Include="Assets\images\los-pollos-hermanos.svg" />
     <Content Include="Assets\images\main-banner.jpg" />
+    <Content Include="Assets\images\number-one.svg" />
     <Content Include="Assets\images\pollos_hermanos.svg" />
     <Content Include="Assets\images\restaurant1.jpg" />
     <Content Include="Assets\images\restaurant10.jpg" />
@@ -211,6 +223,7 @@
     <Content Include="Assets\images\restaurant9.jpg" />
     <Content Include="Assets\images\search-13-24.png" />
     <Content Include="Assets\images\search.svg" />
+    <Content Include="Assets\images\shield.svg" />
     <Content Include="Assets\images\tags.svg" />
     <Content Include="Assets\js\bootstrap.bundle.js" />
     <Content Include="Assets\js\bootstrap.bundle.min.js" />
@@ -469,6 +482,9 @@
     <Content Include="Views\Restaurant_category\ListCategory.cshtml" />
     <Content Include="Views\Restaurants\ListDealRestaurant.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Discounts\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Restaurants\ListNearRestaurant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

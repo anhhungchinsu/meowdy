@@ -10,5 +10,7 @@ namespace FoodDeliverySystem.BusinessLogicLayer.IServices
     public interface IDiscountDetailRepository : IGenericRepository<Discount_detail>
     {
         IEnumerable<Discount_detail> getDistincts();
+
+        IEnumerable<Discount_detail> findById(short id);
     }
 }

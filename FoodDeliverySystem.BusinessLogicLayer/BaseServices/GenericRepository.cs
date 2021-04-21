@@ -37,7 +37,7 @@ namespace FoodDeliverySystem.BusinessLogicLayer.BaseServices
             return _dbSet.ToList();
         }
 
-        public TEnity GetById(int id)
+        public TEnity GetById(short id)
         {
             return _dbSet.Find(id);
         }

@@ -402,6 +402,12 @@
         white-space: nowrap;
     }
 
+    .now-list-restaurant-row .item-res-info {
+        font-size: 14px;
+        color: #000;
+        position: relative;
+    }
+
 .txt-center {
     text-align: center !important;
 }

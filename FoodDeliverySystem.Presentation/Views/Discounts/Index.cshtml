@@ -1,0 +1,18 @@
+﻿@model IEnumerable<FoodDeliverySystem.Presentation.ViewModels.DiscountWithCountViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="item-restaurant">
+        <a href="#" class="item-content">
+            <div class="img-restaurant">
+                <img src="~/Assets/images/discount (@item.Discount.discount_id).jpeg" class="">
+            </div>
+            <div class="info-restaurant info-basic-res">
+                <h4 class="name-res" title="@item.Discount.discount_content">@item.Discount.discount_content</h4>
+                <div class="txt-blue font12">
+                    @item.Count địa điểm
+                </div>
+            </div>
+        </a>
+    </div>
+}

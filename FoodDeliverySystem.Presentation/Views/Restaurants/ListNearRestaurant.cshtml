@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FoodDeliverySystem.Presentation.ViewModels.RestaurantDetailViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="item-restaurant">
+        <a class="item-content" href="#">
+            <div class="row no-gutters">
+                <div class="col-auto">
+                    <div class="img-restaurant">
+                        <img src="~/Assets/images/@item.Restaurant.restaurant_image" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-restaurant">
+                        <div class="name-res">
+                            <img width="16" height="16" src="~/Assets/images/shield.svg" />
+                            @item.Restaurant.restaurant_name
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="address-res mb-1">
+                                    @item.Restaurant.restaurant_address
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-res-info">
+                            <img width="16" height="16" src="~/Assets/images/label-price.svg" />
+                            Tối thiểu 20k
+                            <img width="16" height="16" src="~/Assets/images/number-one.svg" />
+                            Tốt nhất
+                        </div>
+                        <p class="content-promotion pt-1 pl-0 pb-0">
+                            <img class="mr-1" width="17" height="17" src="~/Assets/images/tags.svg" />
+                            @item.Discount.FirstOrDefault().discount_content
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+}

@@ -1,5 +1,6 @@
 ﻿using FoodDeliverySystem.BusinessLogicLayer.IServices;
 using FoodDeliverySystem.Models.DBContext;
+using FoodDeliverySystem.Presentation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,12 @@ namespace FoodDeliverySystem.Presentation.Controllers
     public class HomeController : Controller
     {
         private readonly FoodDeliveryContext db = new FoodDeliveryContext();
-        private readonly IDiscountDetailRepository _discountDetailRepository;
-        private readonly IDiscountRepository _discountRepository;
+        private readonly IUserRepository _userRepository;
 
-        public HomeController(IDiscountDetailRepository discountDetailRepository,
-            IDiscountRepository discountRepository)
+
+        public HomeController(IUserRepository userRepository)
         {
-            _discountDetailRepository = discountDetailRepository;
-            _discountRepository = discountRepository;
+            _userRepository = userRepository;
         }
 
         public ActionResult Index()
@@ -26,10 +25,33 @@ namespace FoodDeliverySystem.Presentation.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(User user)
+        {
+            var listUser = _userRepository.GetAll();
+            var checkLogin = listUser.Where(x => x.user_email == user.user_email && x.user_password == user.user_password).FirstOrDefault();
+            if(checkLogin != null)
+            {
+                Session["userName"] = checkLogin.user_name.ToString();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.Notification = "Wrong dmm";
+            }
+            return View();
+        }
+
         public ActionResult About()
         {
-            var listDiscount = _discountRepository.GetAll();
-            return View(listDiscount);
+            return View();
         }
 
         public ActionResult Contact()
