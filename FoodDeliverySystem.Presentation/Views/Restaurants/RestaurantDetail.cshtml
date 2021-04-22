@@ -1,93 +1,79 @@
-﻿@model FoodDeliverySystem.Models.DBContext.Restaurant
+﻿@model FoodDeliverySystem.Presentation.ViewModels.RestaurantDetailViewModel
 
-@{
-    ViewBag.Title = "RestaurantDetail";
+@*<h1>@Model.Restaurant.restaurant_name</h1>
+
+@foreach (var item in Model.Discounts)
+{
+    <h2>@item.discount_content</h2>
 }
+@foreach (var item in Model.Restaurant.Menus)
+{
+    <h3>@item.menu_name</h3>
+    foreach(var f in item.Foods)
+                {
+                    <h4>@f.food_name</h4>
+                }
+}*@
 
-<h2>RestaurantDetail</h2>
-
-<div>
-    <h4>Restaurant</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_image)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_start_time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_start_time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.restaurant_end_time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.restaurant_end_time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Restaurant_category.restaurant_category_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Restaurant_category.restaurant_category_name)
-        </dd>
-
-        <dt>
-            @foreach(var item in Model.Menus)
-            {
-                @item.menu_name
-            }
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.user_name)
-        </dd>
-
-    </dl>
+<div class="now-detail-restaurant clearfix">
+    <div class="container-cus">
+        <div class="detail-restaurant-img">
+            <img src="https://images.foody.vn/res/g96/950640/prof/s640x400/foody-upload-api-foody-mobile-tigersugar_st-190826105153.jpg" alt="Tiger Sugar - Vũ Trọng Phụng" class="">
+        </div>
+        <div class="detail-restaurant-info">
+            <div class="kind-restaurant">
+                <div class="tag-preferred">
+                    <img width="16" height="16" src="~/Assets/images/gold-medal.svg" />
+                    Yêu thích
+                </div>
+                <span>
+                    Cafe/Dessert
+                </span>
+            </div>
+            <h1 class="name-restaurant">Tiger Sugar - Vũ Trọng Phụng</h1>
+            <div class="address-restaurant">3 Ngõ 98 Vũ Trọng Phụng, Thanh Xuân, Hà Nội</div>
+            <div class="rating">
+                <div class="stars">
+                    <span class="full"><img width="16" height="16" src="~/Assets/images/star.svg" /></span>
+                    <span class="full"><img width="16" height="16" src="~/Assets/images/star.svg" /></span>
+                    <span class="full"><img width="16" height="16" src="~/Assets/images/star.svg" /></span>
+                    <span class="full"><img width="16" height="16" src="~/Assets/images/star.svg" /></span>
+                    <span class="full"><img width="16" height="16" src="~/Assets/images/star.svg" /></span>
+                </div>
+                <span class="number-rating">999+</span>
+                lượt đánh giá từ Now
+            </div>
+            <div class="status-restaurant">
+                <div class="opentime-status">
+                    <span class="stt online" title="Mở cửa"></span>
+                </div>
+                <div class="time">
+                    <img class="pb-1" width="16" height="16" src="~/Assets/images/clock.svg" />
+                    00:00 - 00:30 | 08:04 - 23:59
+                </div>
+            </div>
+            <div class="cost-restaurant pb-5">
+                <img width="25" height="25" src="~/Assets/images/big-dollar-coin.svg"/>
+                15,000 - 50,000
+            </div>
+            <div class="utility-restaurant clearfix">
+                <div class="utility-item">
+                    <div class="utility-title">Phí dịch vụ</div>
+                    <div class="utility-content">
+                        <span class="txt-bold txt-red"> 0.0% Phí phục vụ </span>
+                    </div>
+                </div>
+                <div class="utility-item">
+                    <div class="utility-title">Dịch vụ bởi</div>
+                    <div class="utility-content">
+                        <span class="txt-bold txt-red">Anhhungchinsu</span>
+                    </div>
+                </div>
+                <div class="utility-item">
+                    <div class="utility-title">Chuẩn bị</div>
+                    <div class="utility-content">12 Phút</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.restaurant_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

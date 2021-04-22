@@ -54,6 +54,7 @@
     <Compile Include="BaseServices\GenericRepository.cs" />
     <Compile Include="BaseServices\IGenericRepository.cs" />
     <Compile Include="IServices\IFoodRepository.cs" />
+    <Compile Include="IServices\IMenuRepository.cs" />
     <Compile Include="IServices\IRestaurantCategoryRepository.cs" />
     <Compile Include="IServices\IDiscountRepository.cs" />
     <Compile Include="IServices\IDiscountDetailRepository.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Services\DiscountDetailService.cs" />
     <Compile Include="Services\DiscountService.cs" />
     <Compile Include="Services\FoodService.cs" />
+    <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\RestaurantCategoryService.cs" />
     <Compile Include="Services\RestaurantService.cs" />
     <Compile Include="Services\UserService.cs" />

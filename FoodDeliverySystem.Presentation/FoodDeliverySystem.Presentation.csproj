@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DiscountWithCountViewModel.cs" />
+    <Compile Include="ViewModels\MenuDetailViewModel.cs" />
     <Compile Include="ViewModels\RestaurantDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,8 @@
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\site.css" />
+    <Content Include="Assets\images\big-dollar-coin.svg" />
+    <Content Include="Assets\images\clock.svg" />
     <Content Include="Assets\images\discount %281%29.jpeg" />
     <Content Include="Assets\images\discount %282%29.jpeg" />
     <Content Include="Assets\images\discount %283%29.jpeg" />
@@ -185,6 +188,7 @@
     <Content Include="Assets\images\discount %287%29.jpeg" />
     <Content Include="Assets\images\discount %288%29.jpeg" />
     <Content Include="Assets\images\discount %289%29.jpeg" />
+    <Content Include="Assets\images\gold-medal.svg" />
     <Content Include="Assets\images\label-price.svg" />
     <Content Include="Assets\images\los-pollos-hermanos.svg" />
     <Content Include="Assets\images\main-banner.jpg" />
@@ -224,6 +228,7 @@
     <Content Include="Assets\images\search-13-24.png" />
     <Content Include="Assets\images\search.svg" />
     <Content Include="Assets\images\shield.svg" />
+    <Content Include="Assets\images\star.svg" />
     <Content Include="Assets\images\tags.svg" />
     <Content Include="Assets\js\bootstrap.bundle.js" />
     <Content Include="Assets\js\bootstrap.bundle.min.js" />

@@ -27,7 +27,7 @@ $('#Btn-More-Deal').on("click", function () {
                             '</div>' +
                             '<p class="content-promotion">' +
                             '<img class="mr-1" width="17" height="17" src="/Assets/images/tags.svg"/>' +
-                            item.Discount[0].discount_content +
+                            item.Discounts[0].discount_content +
                             '</p>' +
                             '</div>' +
                             '</a>' +
@@ -94,7 +94,7 @@ var load = function (location, page) {
                         '</div>' +
                         '<p class="content-promotion pt-1 pl-0 pb-0">' +
                         '<img class="mr-1" width="17" height="17" src="/Assets/images/tags.svg" />' +
-                        item.Discount[0].discount_content +
+                        item.Discounts[0].discount_content +
                         '</p>' +
                         '</div>' +
                         '</div>' +
@@ -154,8 +154,12 @@ var search = function (location, something, page) {
 }
 
 $('#txtSearchHome').change(() => {
-    $('.now-idea-searching').remove()
-    search($('#selectedLocation option:selected').text(), $('#txtSearchHome').val(), 1)
+    if (!$('#txtSearchHome').val()) {
+        $('.now-idea-searching').remove()
+    } else {
+        $('.now-idea-searching').remove()
+        search($('#selectedLocation option:selected').text(), $('#txtSearchHome').val(), 1)
+    }
 })
 
 $('#Btn-More-Location').on("click", function () {

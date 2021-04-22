@@ -32,6 +32,11 @@ namespace FoodDeliverySystem.BusinessLogicLayer.BaseServices
             return Context.SaveChanges() > 0;
         }
 
+        public IEnumerable<TEnity> FindAll(Expression<Func<TEnity, bool>> filter)
+        {
+            return _dbSet.Where(filter);
+        }
+
         public IEnumerable<TEnity> GetAll()
         {
             return _dbSet.ToList();

@@ -15,5 +15,6 @@ namespace FoodDeliverySystem.BusinessLogicLayer.BaseServices
         bool Update(TEntity entity);
         bool Delete(TEntity entity);
 
+        IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> filter);
     }
 }

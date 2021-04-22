@@ -19,23 +19,32 @@ namespace FoodDeliverySystem.Presentation.Controllers
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IDiscountDetailRepository _discountDetailRepository;
         private readonly IDiscountRepository _discountRepository;
+        private readonly IMenuRepository _menuRepository;
+        private readonly IFoodRepository _foodRepository;
 
 
         public RestaurantsController(IRestaurantRepository restaurantRepository,
             IDiscountDetailRepository discountDetailRepository,
-            IDiscountRepository discountRepository)
+            IDiscountRepository discountRepository,
+            IMenuRepository menuRepository,
+            IFoodRepository foodRepository)
         {
             _restaurantRepository = restaurantRepository;
             _discountDetailRepository = discountDetailRepository;
             _discountRepository = discountRepository;
+            _menuRepository = menuRepository;
+            _foodRepository = foodRepository;
         }
 
         public ActionResult RestaurantDetail(short id)
         {
             var restaurant = _restaurantRepository.GetById(id);
-
-
-            return View(restaurant);
+            var restaurantDetailViewModel = new RestaurantDetailViewModel()
+            {
+                Restaurant = restaurant,
+                Discounts = _discountRepository.GetDiscountsByUser((short)restaurant.restaurant_user_id),
+            };
+            return View(restaurantDetailViewModel);
         }
 
         // GET: Restaurants
@@ -49,7 +58,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 var restaurantDetailViewModel = new RestaurantDetailViewModel()
                 {
                     Restaurant = item,
-                    Discount = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                    Discounts = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
                 };
                 list.Add(restaurantDetailViewModel);
             }
@@ -70,7 +79,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                     var restaurantDetailViewModel = new RestaurantDetailViewModel()
                     {
                         Restaurant = item,
-                        Discount = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                        Discounts = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
                     };
                     list.Add(restaurantDetailViewModel);
                 }
@@ -98,7 +107,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 var restaurantDetailViewModel = new RestaurantDetailViewModel()
                 {
                     Restaurant = item,
-                    Discount = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                    Discounts = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
                 };
                 list.Add(restaurantDetailViewModel);
             }
@@ -112,6 +121,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
         {
             try
             {
+                
                 var listRestaurants = _restaurantRepository.GetAll().Where(p => p.restaurant_address.Contains(location));
                 var list = new List<RestaurantDetailViewModel>();
                 foreach (var item in listRestaurants)
@@ -119,7 +129,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                     var restaurantDetailViewModel = new RestaurantDetailViewModel()
                     {
                         Restaurant = item,
-                        Discount = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                        Discounts = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
                     };
                     list.Add(restaurantDetailViewModel);
                 }
