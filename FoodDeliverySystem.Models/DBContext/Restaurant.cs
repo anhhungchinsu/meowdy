@@ -33,7 +33,6 @@ namespace FoodDeliverySystem.Models.DBContext
         public Nullable<short> restaurant_category_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
         [JsonIgnore]
         public virtual ICollection<Menu> Menus { get; set; }
         [JsonIgnore]

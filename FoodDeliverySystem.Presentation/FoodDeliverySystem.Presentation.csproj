@@ -485,6 +485,7 @@
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Restaurants\ListNearRestaurant.cshtml" />
+    <Content Include="Views\Restaurants\RestaurantDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

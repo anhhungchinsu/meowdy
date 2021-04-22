@@ -32,15 +32,16 @@
           <ScalarProperty Name="food_image" ColumnName="food_image" />
           <ScalarProperty Name="food_served" ColumnName="food_served" />
           <ScalarProperty Name="food_note" ColumnName="food_note" />
+          <ScalarProperty Name="food_menu_id" ColumnName="food_menu_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Menus">
       <EntityTypeMapping TypeName="FoodDeliveryModel.Menu">
         <MappingFragment StoreEntitySet="Menu">
-          <ScalarProperty Name="menu_food_id" ColumnName="menu_food_id" />
-          <ScalarProperty Name="menu_restaurant_id" ColumnName="menu_restaurant_id" />
+          <ScalarProperty Name="menu_id" ColumnName="menu_id" />
           <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+          <ScalarProperty Name="menu_restaurant_id" ColumnName="menu_restaurant_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

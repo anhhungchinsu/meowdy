@@ -51,73 +51,138 @@ $('#Btn-More-Deal').on("click", function () {
 });
 
 var page = 1
-$('#Btn-More-Location').on("click", function () {
-    $(document).ready(function () {
-        var load = function (location, page) {
-            $.ajax({
-                type: "GET",
-                url: 'Restaurants/GetListRestaurantInLocation',
-                contentType: "application/json; charset=utf-8",
-                data: {
-                    location: location,
-                    page: page
-                },
-                dataType: "json",
-                success: function (result) {
-                    if (result.data.length > 0) {
-                        let rs = JSON.parse(result.data)
-                        for (let item of rs) {
-                            let ht = '<div class="item-restaurant">' +
-                                '<a class="item-content" href="#">' +
-                                '<div class="row no-gutters">' +
-                                '<div class="col-auto">' +
-                                '<div class="img-restaurant">' +
-                                '<img src="/Assets/images/' + item.Restaurant.restaurant_image + '" />' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="col">' +
-                                '<div class="info-restaurant">' +
-                                '<div class="name-res">' +
-                                '<img width="16" height="16" src="/Assets/images/shield.svg" />' +
-                                item.Restaurant.restaurant_name +
-                                '</div>' +
-                                '<div class="row">' +
-                                '<div class="col">' +
-                                '<div class="address-res mb-1">' +
-                                item.Restaurant.restaurant_address +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="item-res-info">' +
-                                '<img width="16" height="16" src="/Assets/images/label-price.svg" />' +
-                                'Tối thiểu 20k' +
-                                '<img width="16" height="16" src="/Assets/images/number-one.svg" />' +
-                                'Tốt nhất' +
-                                '</div>' +
-                                '<p class="content-promotion pt-1 pl-0 pb-0">' +
-                                '<img class="mr-1" width="17" height="17" src="/Assets/images/tags.svg" />' +
-                                item.Discount[0].discount_content +
-                                '</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</a>' +
-                                '</div>'
-                            $('#near-list-restaurant').append(ht);
-                        }
-                    }
-                    else {
-                        alert('No More Records to Load')
-                    }
-                },
-                error: function () {
-                    alert("Error");
+var load = function (location, page) {
+    $.ajax({
+        type: "GET",
+        url: 'Restaurants/GetListRestaurantInLocation',
+        contentType: "application/json; charset=utf-8",
+        data: {
+            location: location,
+            page: page
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result.data.length > 0) {
+                let rs = JSON.parse(result.data)
+                for (let item of rs) {
+                    let ht = '<div class="item-restaurant">' +
+                        '<a class="item-content" href="#">' +
+                        '<div class="row no-gutters">' +
+                        '<div class="col-auto">' +
+                        '<div class="img-restaurant">' +
+                        '<img src="/Assets/images/' + item.Restaurant.restaurant_image + '" />' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col">' +
+                        '<div class="info-restaurant">' +
+                        '<div class="name-res">' +
+                        '<img width="16" height="16" src="/Assets/images/shield.svg" />' +
+                        item.Restaurant.restaurant_name +
+                        '</div>' +
+                        '<div class="row">' +
+                        '<div class="col">' +
+                        '<div class="address-res mb-1">' +
+                        item.Restaurant.restaurant_address +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="item-res-info">' +
+                        '<img width="16" height="16" src="/Assets/images/label-price.svg" />' +
+                        'Tối thiểu 20k' +
+                        '<img width="16" height="16" src="/Assets/images/number-one.svg" />' +
+                        'Tốt nhất' +
+                        '</div>' +
+                        '<p class="content-promotion pt-1 pl-0 pb-0">' +
+                        '<img class="mr-1" width="17" height="17" src="/Assets/images/tags.svg" />' +
+                        item.Discount[0].discount_content +
+                        '</p>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</div>'
+                    $('#near-list-restaurant').append(ht);
                 }
-            });
+            }
+            else {
+                alert('No More Records to Load')
+            }
+        },
+        error: function () {
+            alert("Error");
         }
-        load("Cầu Giấy", page++)
     });
+}
+
+var search = function (location, something, page) {
+    $.ajax({
+        type: "GET",
+        url: 'Restaurants/GetListRestaurantBySomething',
+        contentType: "application/json; charset=utf-8",
+        data: {
+            location: location,
+            something: something,
+            page: page
+        },
+        dataType: "json",
+        success: function (result) {
+            let rs = JSON.parse(result.data)
+            let ht = '<div class="now-idea-searching">' +
+                '<div class="now-list-restaurant-row">'
+            for (let item of rs) {
+                ht +=
+                    '<div class="item-restaurant">' +
+                    '<a class="item-content" href="#">' +
+                        '<div class="img-restaurant">' +
+                        '<img src="/Assets/images/' + item.restaurant_image + '" alt="' + item.restaurant_name + '" title="' + item.restaurant_name + '">' +
+                    '</div>' +
+                        '<div class="info-restaurant">' +
+                        '<div class="name-res">' + item.restaurant_name + '</div>' +
+                        '<div class="address-res">' + item.restaurant_address + '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>' 
+            }
+            ht += '</div>' +
+                '</div>' 
+            $('#frmSearch').append(ht);
+        },
+        error: function () {
+            alert("Error");
+        }
+    });
+}
+
+$('#txtSearchHome').change(() => {
+    $('.now-idea-searching').remove()
+    search($('#selectedLocation option:selected').text(), $('#txtSearchHome').val(), 1)
+})
+
+$('#Btn-More-Location').on("click", function () {
+    if ($('#selectedLocationByDistrict option:selected').text() == "Chọn quận/ huyện") {
+        $(document).ready(function () {
+            load($('#selectedLocation option:selected').text(), page++)
+        });
+    } else {
+        let loca = $('#selectedLocationByDistrict option:selected').text() + ", " + $('#selectedLocation option:selected').text()
+        $(document).ready(function () {
+            load(loca, page++)
+        });
+    }
+
 });
+
+$('#selectedLocation').change(() => {
+    $('#near-list-restaurant').empty()
+    page = 1
+    load($('#selectedLocation option:selected').text(), page++)
+})
+
+$('#selectedLocationByDistrict').change(() => {
+    $('#near-list-restaurant').empty()
+    page = 1
+    load($('#selectedLocationByDistrict option:selected').text(), page++)
+})
 
 //document.querySelector('#find-me').addEventListener('click', showMap);
 //$("#osm-map").on('load', function () {
@@ -168,6 +233,8 @@ function showMap() {
     }
 }
 
+//lat: 10.754251475450005,
+//    lon: 106.6226725711504,
 function getLocation() {
     if (!navigator.geolocation) {
         alert("zolo")
@@ -177,24 +244,26 @@ function getLocation() {
             const longitude = position.coords.longitude;
             $.ajax({
                 type: "GET",
-                url: "https://nominatim.openstreetmap.org/reverse?format=json&lat=21.042736899999998&lon=105.74998389999999&addressdetails=18",
+                url: "https://nominatim.openstreetmap.org/reverse",
                 contentType: "application/json; charset=utf-8",
                 data: {
                     format: 'json',
                     lat: latitude,
-                    lon: longitude
+                    lon: longitude,
+                    addressdetails: 18
                 },
                 dataType: "json",
                 success: (data) => {
-                    console.log(data.address.suburb)
+                    $('#selectedLocation').val(data.address.city)
+                    $('#Btn-More-Location').trigger("click")
                 },
                 error: (e) => {
-                    alert(e)
+                    $('#selectedLocation').val("Hanoi")
                 }
             })
 
         }, () => {
-            alert("cc")
+            $('#selectedLocation').val("Hanoi")
         })
     }
 }

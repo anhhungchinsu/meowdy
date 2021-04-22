@@ -15,11 +15,19 @@ namespace FoodDeliverySystem.Models.DBContext
     
     public partial class Menu
     {
-        public short menu_food_id { get; set; }
-        public short menu_restaurant_id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Menu()
+        {
+            this.Foods = new HashSet<Food>();
+        }
+    
+        public short menu_id { get; set; }
         public string menu_name { get; set; }
+        public Nullable<short> menu_restaurant_id { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
-        public virtual Food Food { get; set; }
+        public virtual ICollection<Food> Foods { get; set; }
         [JsonIgnore]
         public virtual Restaurant Restaurant { get; set; }
     }

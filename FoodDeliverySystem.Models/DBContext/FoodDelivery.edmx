@@ -36,15 +36,15 @@
           <Property Name="food_image" Type="nvarchar" MaxLength="100" />
           <Property Name="food_served" Type="smallint" />
           <Property Name="food_note" Type="nvarchar(max)" />
+          <Property Name="food_menu_id" Type="smallint" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
-            <PropertyRef Name="menu_food_id" />
-            <PropertyRef Name="menu_restaurant_id" />
+            <PropertyRef Name="menu_id" />
           </Key>
-          <Property Name="menu_food_id" Type="smallint" Nullable="false" />
-          <Property Name="menu_restaurant_id" Type="smallint" Nullable="false" />
+          <Property Name="menu_id" Type="smallint" Nullable="false" />
           <Property Name="menu_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="menu_restaurant_id" Type="smallint" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -155,20 +155,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Menu_Food">
-          <End Role="Food" Type="Self.Food" Multiplicity="1" />
-          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+        <Association Name="FK_Food_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Food" Type="Self.Food" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Food">
-              <PropertyRef Name="food_id" />
+            <Principal Role="Menu">
+              <PropertyRef Name="menu_id" />
             </Principal>
-            <Dependent Role="Menu">
-              <PropertyRef Name="menu_food_id" />
+            <Dependent Role="Food">
+              <PropertyRef Name="food_menu_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Menu_Restaurant">
-          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+        <Association Name="FK_Menu_Restaurant1">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
           <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurant">
@@ -284,11 +284,11 @@
             <End Role="User" EntitySet="User" />
             <End Role="Discount_detail" EntitySet="Discount_detail" />
           </AssociationSet>
-          <AssociationSet Name="FK_Menu_Food" Association="Self.FK_Menu_Food">
-            <End Role="Food" EntitySet="Food" />
+          <AssociationSet Name="FK_Food_Menu" Association="Self.FK_Food_Menu">
             <End Role="Menu" EntitySet="Menu" />
+            <End Role="Food" EntitySet="Food" />
           </AssociationSet>
-          <AssociationSet Name="FK_Menu_Restaurant" Association="Self.FK_Menu_Restaurant">
+          <AssociationSet Name="FK_Menu_Restaurant1" Association="Self.FK_Menu_Restaurant1">
             <End Role="Restaurant" EntitySet="Restaurant" />
             <End Role="Menu" EntitySet="Menu" />
           </AssociationSet>
@@ -360,19 +360,19 @@
           <Property Name="food_image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="food_served" Type="Int16" />
           <Property Name="food_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Food" FromRole="Food" ToRole="Menu" />
+          <Property Name="food_menu_id" Type="Int16" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_Food_Menu" FromRole="Food" ToRole="Menu" />
           <NavigationProperty Name="Order_detail" Relationship="Self.FK_Order_detail_Food" FromRole="Food" ToRole="Order_detail" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
-            <PropertyRef Name="menu_food_id" />
-            <PropertyRef Name="menu_restaurant_id" />
+            <PropertyRef Name="menu_id" />
           </Key>
-          <Property Name="menu_food_id" Type="Int16" Nullable="false" />
-          <Property Name="menu_restaurant_id" Type="Int16" Nullable="false" />
+          <Property Name="menu_id" Type="Int16" Nullable="false" />
           <Property Name="menu_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Food" Relationship="Self.FK_Menu_Food" FromRole="Menu" ToRole="Food" />
-          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Menu_Restaurant" FromRole="Menu" ToRole="Restaurant" />
+          <Property Name="menu_restaurant_id" Type="Int16" />
+          <NavigationProperty Name="Foods" Relationship="Self.FK_Food_Menu" FromRole="Menu" ToRole="Food" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Menu_Restaurant1" FromRole="Menu" ToRole="Restaurant" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -414,7 +414,7 @@
           <Property Name="restaurant_end_time" Type="Time" Precision="7" />
           <Property Name="restaurant_user_id" Type="Int16" />
           <Property Name="restaurant_category_id" Type="Int16" />
-          <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Restaurant" FromRole="Restaurant" ToRole="Menu" />
+          <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Restaurant1" FromRole="Restaurant" ToRole="Menu" />
           <NavigationProperty Name="Restaurant_category" Relationship="Self.FK_Restaurant_Restaurant_category" FromRole="Restaurant" ToRole="Restaurant_category" />
           <NavigationProperty Name="User" Relationship="Self.FK_Restaurant_User" FromRole="Restaurant" ToRole="User" />
         </EntityType>
@@ -498,15 +498,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Menu_Food">
-          <End Role="Food" Type="Self.Food" Multiplicity="1" />
-          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+        <Association Name="FK_Food_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Food" Type="Self.Food" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Food">
-              <PropertyRef Name="food_id" />
+            <Principal Role="Menu">
+              <PropertyRef Name="menu_id" />
             </Principal>
-            <Dependent Role="Menu">
-              <PropertyRef Name="menu_food_id" />
+            <Dependent Role="Food">
+              <PropertyRef Name="food_menu_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -522,8 +522,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Menu_Restaurant">
-          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+        <Association Name="FK_Menu_Restaurant1">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
           <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurant">
@@ -627,15 +627,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Discount_detail" EntitySet="Discount_detail" />
           </AssociationSet>
-          <AssociationSet Name="FK_Menu_Food" Association="Self.FK_Menu_Food">
-            <End Role="Food" EntitySet="Foods" />
+          <AssociationSet Name="FK_Food_Menu" Association="Self.FK_Food_Menu">
             <End Role="Menu" EntitySet="Menus" />
+            <End Role="Food" EntitySet="Foods" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_detail_Food" Association="Self.FK_Order_detail_Food">
             <End Role="Food" EntitySet="Foods" />
             <End Role="Order_detail" EntitySet="Order_detail" />
           </AssociationSet>
-          <AssociationSet Name="FK_Menu_Restaurant" Association="Self.FK_Menu_Restaurant">
+          <AssociationSet Name="FK_Menu_Restaurant1" Association="Self.FK_Menu_Restaurant1">
             <End Role="Restaurant" EntitySet="Restaurants" />
             <End Role="Menu" EntitySet="Menus" />
           </AssociationSet>
@@ -701,15 +701,16 @@
                 <ScalarProperty Name="food_image" ColumnName="food_image" />
                 <ScalarProperty Name="food_served" ColumnName="food_served" />
                 <ScalarProperty Name="food_note" ColumnName="food_note" />
+                <ScalarProperty Name="food_menu_id" ColumnName="food_menu_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Menus">
             <EntityTypeMapping TypeName="FoodDeliveryModel.Menu">
               <MappingFragment StoreEntitySet="Menu">
-                <ScalarProperty Name="menu_food_id" ColumnName="menu_food_id" />
-                <ScalarProperty Name="menu_restaurant_id" ColumnName="menu_restaurant_id" />
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
                 <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+                <ScalarProperty Name="menu_restaurant_id" ColumnName="menu_restaurant_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

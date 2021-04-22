@@ -13,22 +13,11 @@
                         </span>
                     </div>
                     <div class="select-local col-auto">
-                        <div class="dropdown">
-                            <div class="dropdown-toggle dropdown-custom" role="button" id="local-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Hà Nội
-                            </div>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-item">
-                                    TP.HCM
-                                </div>
-                                <div class="dropdown-item">
-                                    Hà Nội
-                                </div>
-                                <div class="dropdown-item">
-                                    Đà Nẵng
-                                </div>
-                            </div>
-                        </div>
+                        <select class="custom-select" id="selectedLocation">
+                            <option value="Hanoi">Hà Nội</option>
+                            <option value="Ho Chi Minh City">TP. HCM</option>
+                            <option value="3">Đà Nẵng</option>
+                        </select>
                     </div>
                     <div class="main-nav col">
                         <a class="nav-item active" href="#">Đồ ăn</a>
@@ -71,7 +60,7 @@
                     <h1 class="title">Đặt Đồ ăn, giao hàng từ 20'...</h1>
                     <div class="local">có 25398 địa điểm ở Hà Nội từ 00:00 - 23:59</div>
                 </div>
-                <div class="form-search">
+                <div class="form-search" id="frmSearch">
                     <div class="input-group">
                         <input type="text" id="txtSearchHome" placeholder="Tìm địa điểm, món ăn, địa chỉ..." value="">
                         <a href="/ha-noi/danh-sach-dia-diem-giao-tan-noi?q=">
@@ -139,7 +128,7 @@
                             </button>
                         </div>
                         <div class="col-auto">
-                            <select name="districId">
+                            <select name="districId" id="selectedLocationByDistrict">
                                 <option value="-1">Chọn quận/ huyện</option>
                                 <option value="1">Ba Đình</option>
                                 <option value="2">Cầu Giấy</option>

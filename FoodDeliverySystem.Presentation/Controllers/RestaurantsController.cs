@@ -30,6 +30,14 @@ namespace FoodDeliverySystem.Presentation.Controllers
             _discountRepository = discountRepository;
         }
 
+        public ActionResult RestaurantDetail(short id)
+        {
+            var restaurant = _restaurantRepository.GetById(id);
+
+
+            return View(restaurant);
+        }
+
         // GET: Restaurants
         public ActionResult ListDealRestaurant()
         {
@@ -98,7 +106,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
             return PartialView(list2);
         }
 
-        int pageSize = 2;
+        int pageSize = 6;
         [HttpGet]
         public JsonResult GetListRestaurantInLocation(string location, int? page)
         {
@@ -115,7 +123,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                     };
                     list.Add(restaurantDetailViewModel);
                 }
-                if(page > 0)
+                if (page > 0)
                 {
                     page = page;
                 }
@@ -130,6 +138,47 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 int numSize = (int)Math.Ceiling(totalNumsize);
                 ViewBag.numSize = numSize;
                 var list2 = list.OrderByDescending(x => x.Restaurant.restaurant_id).Skip(start).Take(pageSize);
+                return Json(new
+                {
+                    data = JsonFormatter.Format(list2),
+                    pageCurrent = page,
+                    numSize = numSize
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        ex = e.Message
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetListRestaurantBySomething(string location, string something, int? page)
+        {
+            try
+            {
+                var listRestaurants = _restaurantRepository.GetAll().Where(p => p.restaurant_address.Contains(location));
+                var list = listRestaurants.Where(p => (p.restaurant_address.Contains(something) || p.restaurant_name.Contains(something)));
+                if (page > 0)
+                {
+                    page = page;
+                }
+                else
+                {
+                    page = 1;
+                }
+                int start = (int)(page - 1) * pageSize;
+                ViewBag.pageCurrent = page;
+                int totalPage = list.Count();
+                float totalNumsize = (totalPage / (float)pageSize);
+                int numSize = (int)Math.Ceiling(totalNumsize);
+                ViewBag.numSize = numSize;
+                var list2 = list.OrderByDescending(x => x.restaurant_id).Skip(start).Take(pageSize);
                 return Json(new
                 {
                     data = JsonFormatter.Format(list2),
