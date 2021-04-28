@@ -1,5 +1,6 @@
 ﻿
 var countTweet = 1;
+sessionStorage.setItem("location", "Hà Nội")
 
 $('#Btn-More-Deal').on("click", function () {
     $(document).ready(function () {
@@ -16,7 +17,7 @@ $('#Btn-More-Deal').on("click", function () {
                     for (let item of rs) {
                         //console.log(item.Restaurant.restaurant_name)
                         let ht = '<div class="item-restaurant">' +
-                            '<a target="_blank" class="item-content" href="#">' +
+                            '<a target="_blank" class="item-content" href="/Restaurants/RestaurantDetail/' + item.Restaurant.restaurant_id + '">' +
                             '<div class="img-restaurant">' +
                             '<img src="/Assets/images/' + item.Restaurant.restaurant_image + '" />' +
                             '</div>' +
@@ -66,7 +67,7 @@ var load = function (location, page) {
                 let rs = JSON.parse(result.data)
                 for (let item of rs) {
                     let ht = '<div class="item-restaurant">' +
-                        '<a class="item-content" href="#">' +
+                        '<a class="item-content" href="/Restaurants/RestaurantDetail/' + item.Restaurant.restaurant_id + '">' +
                         '<div class="row no-gutters">' +
                         '<div class="col-auto">' +
                         '<div class="img-restaurant">' +
@@ -132,19 +133,19 @@ var search = function (location, something, page) {
             for (let item of rs) {
                 ht +=
                     '<div class="item-restaurant">' +
-                    '<a class="item-content" href="#">' +
-                        '<div class="img-restaurant">' +
-                        '<img src="/Assets/images/' + item.restaurant_image + '" alt="' + item.restaurant_name + '" title="' + item.restaurant_name + '">' +
+                    '<a class="item-content" href="/Restaurants/RestaurantDetail/' + item.restaurant_id + '">' +
+                    '<div class="img-restaurant">' +
+                    '<img src="/Assets/images/' + item.restaurant_image + '" alt="' + item.restaurant_name + '" title="' + item.restaurant_name + '">' +
                     '</div>' +
-                        '<div class="info-restaurant">' +
-                        '<div class="name-res">' + item.restaurant_name + '</div>' +
-                        '<div class="address-res">' + item.restaurant_address + '</div>' +
+                    '<div class="info-restaurant">' +
+                    '<div class="name-res">' + item.restaurant_name + '</div>' +
+                    '<div class="address-res">' + item.restaurant_address + '</div>' +
                     '</div>' +
                     '</a>' +
-                    '</div>' 
+                    '</div>'
             }
             ht += '</div>' +
-                '</div>' 
+                '</div>'
             $('#frmSearch').append(ht);
         },
         error: function () {
@@ -177,6 +178,7 @@ $('#Btn-More-Location').on("click", function () {
 });
 
 $('#selectedLocation').change(() => {
+    sessionStorage.setItem("location", $('#selectedLocation option:selected').text())
     $('#near-list-restaurant').empty()
     page = 1
     load($('#selectedLocation option:selected').text(), page++)
@@ -214,60 +216,62 @@ $('#selectedLocationByDistrict').change(() => {
 //    }
 //})
 
-function showMap() {
-    const element = $('#osm-map').get(0)
-    element.style = 'height:300px;';
-
-    if (!navigator.geolocation) {
-        alert("zolo")
-    } else {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            const map = L.map(element)
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map)
-            const target = L.latLng(latitude, longitude)
-            map.setView(target, 14)
-            L.marker(target).addTo(map)
-        }, () => {
-            alert("cc")
-        })
-    }
-}
-
 //lat: 10.754251475450005,
 //    lon: 106.6226725711504,
-function getLocation() {
-    if (!navigator.geolocation) {
-        alert("zolo")
-    } else {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            $.ajax({
-                type: "GET",
-                url: "https://nominatim.openstreetmap.org/reverse",
-                contentType: "application/json; charset=utf-8",
-                data: {
-                    format: 'json',
-                    lat: latitude,
-                    lon: longitude,
-                    addressdetails: 18
-                },
-                dataType: "json",
-                success: (data) => {
-                    $('#selectedLocation').val(data.address.city)
-                    $('#Btn-More-Location').trigger("click")
-                },
-                error: (e) => {
-                    $('#selectedLocation').val("Hanoi")
-                }
-            })
 
-        }, () => {
-            $('#selectedLocation').val("Hanoi")
-        })
+$(document).ready(() => {
+    function getLocation() {
+        if (!navigator.geolocation) {
+            alert("zolo")
+        } else {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                $.ajax({
+                    type: "GET",
+                    url: "https://nominatim.openstreetmap.org/reverse",
+                    contentType: "application/json; charset=utf-8",
+                    data: {
+                        format: 'json',
+                        lat: latitude,
+                        lon: longitude,
+                        addressdetails: 18
+                    },
+                    dataType: "json",
+                    success: (data) => {
+                        $('#selectedLocation').val(data.address.city)
+                        $('#Btn-More-Location').trigger("click")
+                    },
+                    error: (e) => {
+                        $('#selectedLocation').val("Hanoi")
+                    }
+                })
+
+            }, () => {
+                $('#selectedLocation').val("Hanoi")
+            })
+        }
+    }
+    getLocation()
+})
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#avatar_user').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
     }
 }
+
+$("#validatedCustomFile").change(function () {
+    readURL(this);
+});
+
+
+
+
+

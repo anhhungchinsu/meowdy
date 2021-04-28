@@ -1,0 +1,69 @@
+﻿@model IEnumerable<FoodDeliverySystem.Presentation.ViewModels.RestaurantDetailViewModel>
+
+@{
+    ViewBag.Title = "ListCategoryRestaurant";
+}
+<div class="container-cus">
+    <div class="now-list-restaurant clearfix">
+        @foreach (var item in Model)
+        {
+            <div class="item-restaurant">
+                <a target="_blank" class="item-content" href="/Restaurants/RestaurantDetail/@item.Restaurant.restaurant_id">
+                    <div class="img-restaurant">
+                        <img src="~/Assets/images/@item.Restaurant.restaurant_image" />
+                    </div>
+                    <div class="info-restaurant">
+                        <div class="info-basic-res">
+                            <h4 class="name-res" title="@item.Restaurant.restaurant_name">@item.Restaurant.restaurant_name</h4>
+                            <div class="address-res" title="@item.Restaurant.restaurant_address">@item.Restaurant.restaurant_address</div>
+                        </div>
+                        <p class="content-promotion">
+                            <img class="mr-1" width="17" height="17" src="~/Assets/images/tags.svg" />
+                            @item.Discounts.FirstOrDefault().discount_content
+                        </p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            @{
+                int position;
+                int pageCurrent = ViewBag.pageCurrent;
+                string txtSearch = ViewBag.txtSearch;
+                float numSize = ViewBag.numSize;
+                if (pageCurrent > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("ListCategoryRestaurant", "Restaurants", new { location = Session["location"], category= Model.FirstOrDefault().Restaurant.restaurant_category_id, page = pageCurrent - 1 })" tabindex="-1">Previous</a>
+                    </li>
+                }
+
+                for (position = 1; position <= numSize; position++)
+                {
+
+                    if (position == pageCurrent)
+                    {
+                        <li class="page-item active"><a class="page-link" href="@Url.Action("ListCategoryRestaurant", "Restaurants", new { location = Session["location"], category= Model.FirstOrDefault().Restaurant.restaurant_category_id, page = position })">@position</a></li>
+                    }
+
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("ListCategoryRestaurant", "Restaurants", new { location = Session["location"], category= Model.FirstOrDefault().Restaurant.restaurant_category_id, page = position })">@position</a></li>
+                    }
+
+                }
+                if (pageCurrent > 0 && pageCurrent < numSize)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("ListCategoryRestaurant", "Restaurants", new { location = Session["location"], category= Model.FirstOrDefault().Restaurant.restaurant_category_id, page = pageCurrent+1 })" tabindex="-1">Next</a>
+                    </li>
+                }
+
+            }
+
+        </ul>
+    </nav>
+</div>
+

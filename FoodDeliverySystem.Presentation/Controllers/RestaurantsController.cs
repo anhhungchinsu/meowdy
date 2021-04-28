@@ -119,9 +119,9 @@ namespace FoodDeliverySystem.Presentation.Controllers
         [HttpGet]
         public JsonResult GetListRestaurantInLocation(string location, int? page)
         {
+            Session["location"] = location;
             try
             {
-                
                 var listRestaurants = _restaurantRepository.GetAll().Where(p => p.restaurant_address.Contains(location));
                 var list = new List<RestaurantDetailViewModel>();
                 foreach (var item in listRestaurants)
@@ -206,6 +206,54 @@ namespace FoodDeliverySystem.Presentation.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
             }
+        }
+
+        public ActionResult ListCategoryRestaurant(string location, short category, int? page)
+        {
+            var listRestaurants = _restaurantRepository.GetAll().Where(p => p.restaurant_address.Contains(location));
+            var listRestaurantByCate = listRestaurants.Where(p => p.restaurant_category_id == category);
+            var list = new List<RestaurantDetailViewModel>();
+            foreach (var item in listRestaurantByCate)
+            {
+                var restaurantDetailViewModel = new RestaurantDetailViewModel()
+                {
+                    Restaurant = item,
+                    Discounts = _discountRepository.GetDiscountsByUser((short)item.restaurant_user_id),
+                };
+                list.Add(restaurantDetailViewModel);
+            }
+            if (page > 0)
+            {
+                page = page;
+            }
+            else
+            {
+                page = 1;
+            }
+            int start = (int)(page - 1) * pageSize;
+            ViewBag.pageCurrent = page;
+            int totalPage = list.Count();
+            float totalNumsize = (totalPage / (float)pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+            ViewBag.numSize = numSize;
+            var list2 = list.OrderByDescending(x => x.Restaurant.restaurant_id).Skip(start).Take(pageSize);
+            return View(list2);
+        }
+
+        public ActionResult ListRestaurantByDeal(short? discount)
+        {
+            var listUser = _discountDetailRepository.FindAll(p => p.discount_detail_discount_id == discount).Distinct();
+            var list = new List<RestaurantDetailViewModel>();
+            foreach(var item in listUser)
+            {
+                var restaurantDetailViewModel = new RestaurantDetailViewModel()
+                {
+                    Restaurant = _restaurantRepository.FindAll(x => x.restaurant_user_id == item.discount_detail_user_id).FirstOrDefault(),
+                    Discounts = _discountRepository.GetDiscountsByUser((short)item.discount_detail_user_id),
+                };
+                list.Add(restaurantDetailViewModel);
+            }
+            return View(list);
         }
 
         protected override void Dispose(bool disposing)

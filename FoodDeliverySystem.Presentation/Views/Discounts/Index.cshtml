@@ -3,7 +3,7 @@
 @foreach (var item in Model)
 {
     <div class="item-restaurant">
-        <a href="#" class="item-content">
+        <a href="@Url.Action("ListRestaurantByDeal", "Restaurants", new { discount = item.Discount.discount_id})" class="item-content">
             <div class="img-restaurant">
                 <img src="~/Assets/images/discount (@item.Discount.discount_id).jpeg" class="">
             </div>

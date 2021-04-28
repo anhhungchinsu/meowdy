@@ -1,24 +1,13 @@
 ﻿@model FoodDeliverySystem.Presentation.ViewModels.RestaurantDetailViewModel
 
-@*<h1>@Model.Restaurant.restaurant_name</h1>
+<link href="@Url.Content("~/Content/smart_cart.min.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
 
-@foreach (var item in Model.Discounts)
-{
-    <h2>@item.discount_content</h2>
-}
-@foreach (var item in Model.Restaurant.Menus)
-{
-    <h3>@item.menu_name</h3>
-    foreach(var f in item.Foods)
-                {
-                    <h4>@f.food_name</h4>
-                }
-}*@
 
 <div class="now-detail-restaurant clearfix">
     <div class="container-cus">
         <div class="detail-restaurant-img">
-            <img src="https://images.foody.vn/res/g96/950640/prof/s640x400/foody-upload-api-foody-mobile-tigersugar_st-190826105153.jpg" alt="Tiger Sugar - Vũ Trọng Phụng" class="">
+            <img src="~/Assets/images/@Model.Restaurant.restaurant_image" alt="'+@Model.Restaurant.restaurant_name+'" class="">
         </div>
         <div class="detail-restaurant-info">
             <div class="kind-restaurant">
@@ -27,11 +16,11 @@
                     Yêu thích
                 </div>
                 <span>
-                    Cafe/Dessert
+                    @Model.Restaurant.Restaurant_category.restaurant_category_name
                 </span>
             </div>
-            <h1 class="name-restaurant">Tiger Sugar - Vũ Trọng Phụng</h1>
-            <div class="address-restaurant">3 Ngõ 98 Vũ Trọng Phụng, Thanh Xuân, Hà Nội</div>
+            <h1 class="name-restaurant">@Model.Restaurant.restaurant_name</h1>
+            <div class="address-restaurant">@Model.Restaurant.restaurant_address</div>
             <div class="rating">
                 <div class="stars">
                     <span class="full"><img width="16" height="16" src="~/Assets/images/star.svg" /></span>
@@ -49,11 +38,11 @@
                 </div>
                 <div class="time">
                     <img class="pb-1" width="16" height="16" src="~/Assets/images/clock.svg" />
-                    00:00 - 00:30 | 08:04 - 23:59
+                    @Model.Restaurant.restaurant_start_time | @Model.Restaurant.restaurant_end_time
                 </div>
             </div>
             <div class="cost-restaurant pb-5">
-                <img width="25" height="25" src="~/Assets/images/big-dollar-coin.svg"/>
+                <img width="25" height="25" src="~/Assets/images/big-dollar-coin.svg" />
                 15,000 - 50,000
             </div>
             <div class="utility-restaurant clearfix">
@@ -77,3 +66,262 @@
         </div>
     </div>
 </div>
+</div>
+<div class="container-cus position-relative clearfix">
+    <div class="now-menu-restaurant">
+        <div class="menu-restaurant-tab">
+            <div class="item active">Thực đơn</div>
+        </div>
+        <div class="menu-restaurant-content-tab">
+            <div class="menu-restaurant-container">
+                <div class="menu-restaurant-category">
+                    <div class="list-category" id="scroll-spy">
+                        <div class="scrollbar-container ps">
+                            @foreach (var item in Model.Restaurant.Menus)
+                            {
+                                <div class="item">
+                                    <span id="42804" title="@item.menu_name" class="item-link">@item.menu_name</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-restaurant-detail">
+                    <div class="promotions-order">
+                        @foreach (var item in Model.Discounts)
+                        {
+                            <div id="promotion-item" class="promotion-item">
+                                <div>
+                                    <img src="https://images.foody.vn/icon/discount/s/voucher_14.png" alt="@item.discount_content" class="icon-promotion">
+                                    <div class="content">@item.discount_content</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="menu-restaurant-list">
+                        <div id="restaurant-item">
+                            <div>
+                                @foreach (var item in Model.Restaurant.Menus)
+                                {
+                                    <div class="menu-group" id="section-group-menu-492804">
+                                        <div class="title-menu">@item.menu_name</div>
+                                    </div>
+                                    foreach (var f in item.Foods)
+                                    {
+                                        <div class="item-restaurant-row">
+                                            <div class="row sc-product-item">
+                                                <div class="col-auto item-restaurant-img">
+                                                    <button class="inline">
+                                                        <img src="~/Assets/images/@f.food_image" alt="@f.food_name" width="60" height="60">
+                                                    </button>
+                                                </div>
+                                                <div class="col item-restaurant-info">
+                                                    <h2 data-name="product_name" class="item-restaurant-name">@f.food_name</h2>
+                                                    <div class="item-restaurant-total">
+                                                        Đã được đặt
+                                                        <span class="txt-bold">&nbsp;@f.food_served+&nbsp;</span>lần
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto item-restaurant-more">
+                                                    <div class="row">
+                                                        <div class="col-auto product-price">
+                                                            <div class="current-price">
+                                                                <span name="product_price">@f.food_price</span>
+                                                                <span style="font-weight: 400;position: relative;top: -9px;font-size: 10px;right: 0;">đ</span>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-auto adding-food-cart txt-right">
+                                                            <div class="sc-add-to-cart btn-adding" id="btnAddFood">+</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input name="product_id" value="@f.food_id" type="hidden" />
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-order" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-order-detail">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận đơn hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="order-left">
+                        <div class="map-order">
+                            <div class="embed-responsive map-order">
+                                <div id="osm-map">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="direction-content">
+                            <div class="direction-info">
+                                <div class="direction-from">
+                                    <div class="direction-name">Chim Siêu To Khổng Lồ - Nguyên Xá</div>
+                                    <div class="direction-name">63 Nguyên Xá, P. Cầu Diễn, Nam Từ Liêm, Hà Nội</div>
+                                </div>
+                                <div class="direction-to">
+                                    <div>
+                                        <div class="direction-name">
+                                            <span>f</span>
+                                            <span> - 0354549969 </span>
+                                        </div>
+                                        <div class="direction-address">
+                                            <span> 132/68 Đường Cầu Diễn, Minh Khai, Từ Liêm, Hà Nội, Vietnam</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="direction-time">
+                                    <span class="txt-bold"> Dự kiến:  21:20 - 28/04 - </span>
+                                    <span class="txt-red">0.2km</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-right">
+                        <p class="title-popup-order">Chi tiết đơn hàng</p>
+                        <div class="order-list">
+                            <div class="order-item">
+                                <span class="order-item-number">3</span>
+                                <div class="order-item-info">
+                                    <div class="order-item-name"><span class="txt-bold">Chim cút chiên x1&nbsp;</span></div>
+                                </div>
+                                <div class="order-item-price">
+                                    54,000
+                                    <span class="format-price">đ</span>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <span class="order-item-number">3</span>
+                                <div class="order-item-info">
+                                    <div class="order-item-name"><span class="txt-bold">Chim cút chiên x1&nbsp;</span></div>
+                                </div>
+                                <div class="order-item-price">
+                                    54,000
+                                    <span class="format-price">đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-order">
+                            <div class="row">
+                                <div class="col">Tổng cộng <span class="txt-bold">4</span> phần</div>
+                                <div class="col-auto txt-bold">214,000<span class="format-price">đ</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Phí dịch vụ: &nbsp;</div>
+                                <div class="col-auto">4,000<span class="format-price">đ</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Phí vận chuyển: <span class="txt-red">0.2 km</span></div>
+                                <div class="col-auto">&nbsp;15,000<span class="format-price">đ</span></div>
+                            </div>
+                        </div>
+                        <div class="discount-code">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="text">Mã khuyến mãi</span>
+                                    <input type="text" class="input-code" placeholder="Nhập mã" value="">
+                                    <button type="button">Áp dụng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="padding-10 txt-bold font16">
+                            <div class="row">
+                                <div class="col"><span>Tổng cộng</span></div>
+                                <div class="col-auto">233,000<span class="format-price">đ</span></div>
+                            </div>
+                        </div>
+                        <div class="payment-methods">
+                            <div class="row">
+                                <div class="col"><span class="txt-bold font16 txt-black">Tiền mặt</span></div>
+                                <div class="col-auto"><span class="txt-blue">Thay đổi</span></div>
+                            </div>
+                        </div>
+                        <div class="order-note">
+                            <textarea placeholder="Ví dụ: Tòa nhà ABC, lầu 8, cho thêm 2 ly nhựa...." name="note"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="submit-order">
+                        Đặt hàng
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <aside class="col-md-4 now-bill-restaurant">
+
+        <!-- Cart submit form -->
+        <form>
+            <!-- SmartCart element -->
+            <div id="smartcart"></div>
+        </form>
+
+    </aside>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Initialize Smart Cart
+        $('#smartcart').smartCart();
+
+        $('#btnAddFood').on("click", function () {
+            if (!$('#loginedName').text()) {
+                window.location.href = "https://localhost:44320/Users"
+            }
+        })
+
+        $('#exampleModalCenter').on('shown.bs.modal', function () {
+            const element = $('#osm-map').get(0)
+            element.style = 'height:100%;';
+            if (!navigator.geolocation) {
+                alert("Xin hãy bật quyền location '.'")
+            } else {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const map = L.map(element)
+                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map)
+                    const target = L.latLng(latitude, longitude)
+                    const target2 = L.latLng(21.0379746, 105.8800013)
+
+                    var control = L.Routing.control({
+                        waypoints: [
+                            L.latLng(latitude, longitude),
+                            L.latLng(21.0379746, 105.8800013)
+                        ],
+                        router: new L.Routing.osrmv1({
+                            profile: 'car'
+                        }),
+                        //geocoder: L.Control.Geocoder.nominatim({})
+                    }).addTo(map)
+
+
+                    map.setView(target, 14)
+                    L.marker(target2).addTo(map)
+                    L.marker(target).addTo(map)
+                }, () => {
+                    alert("Xin hãy bật quyền location '.'")
+                })
+            }
+        })
+    });
+</script>

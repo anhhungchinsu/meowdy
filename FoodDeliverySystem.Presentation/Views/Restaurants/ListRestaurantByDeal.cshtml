@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FoodDeliverySystem.Presentation.ViewModels.RestaurantDetailViewModel>
+
+@{
+    ViewBag.Title = "ListRestaurantByDeal";
+}
+
+<div class="container-cus">
+    <div class="now-list-restaurant clearfix">
+        @foreach (var item in Model)
+        {
+            <div class="item-restaurant">
+                <a target="_blank" class="item-content" href="/Restaurants/RestaurantDetail/@item.Restaurant.restaurant_id">
+                    <div class="img-restaurant">
+                        <img src="~/Assets/images/@item.Restaurant.restaurant_image" />
+                    </div>
+                    <div class="info-restaurant">
+                        <div class="info-basic-res">
+                            <h4 class="name-res" title="@item.Restaurant.restaurant_name">@item.Restaurant.restaurant_name</h4>
+                            <div class="address-res" title="@item.Restaurant.restaurant_address">@item.Restaurant.restaurant_address</div>
+                        </div>
+                        <p class="content-promotion">
+                            <img class="mr-1" width="17" height="17" src="~/Assets/images/tags.svg" />
+                            @item.Discounts.FirstOrDefault().discount_content
+                        </p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+

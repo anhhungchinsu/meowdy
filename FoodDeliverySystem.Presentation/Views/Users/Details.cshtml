@@ -1,0 +1,133 @@
+﻿@model FoodDeliverySystem.Models.DBContext.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container-cus">
+    <div class="now-navigation-profile">
+        <div class="header-profile">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <img class="avatar-circle" src="~/Assets/images/@Model.user_image" />
+                </div>
+                <div class="col txt-bold font15">Vương Tùng Lân</div>
+            </div>
+            <div class="navigation-profile">
+                <a class="item-navigation active" title="Cập nhật tài khoản" href="#">
+                    <div class="row">
+                        <div class="col-auto">
+                            <img width="20" height="20" src="~/Assets/images/user (1).svg" />
+                        </div>
+                        <div class="col">
+                            Cập nhật tài khoản
+                        </div>
+                        <div class="col-auto">
+                            <i class="icon-arrow-thin right"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="item-navigation" title="Cập nhật tài khoản" href="#">
+                    <div class="row">
+                        <div class="col-auto">
+                            <img width="20" height="20" src="~/Assets/images/shopping-cart.svg" />
+                        </div>
+                        <div class="col">
+                            Thông tin đơn hàng
+                        </div>
+                        <div class="col-auto">
+                            <i class="icon-arrow-thin right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Details", "Users", FormMethod.Post, new { enctype= "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="now-detail-profile">
+            <div class="header-user-profile">Thông tin người dùng</div>
+            <div class="content-user-profile">
+                <div class="user-profile-update">
+                    <div class="title-user">Tải ảnh đại diện</div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="user-avatar-image">
+                                <img src="~/Assets/images/@Model.user_image" alt="" id="avatar_user">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-group">
+                                <span>Tải lên từ</span>
+                                <div class="custom-file-image">
+                                    @Html.HiddenFor(model => model.user_id)
+                                    <input type="file" id="validatedCustomFile" class="input-custom" name="image" />
+                                    @*@Html.EditorFor(model => model.user_image, new { htmlAttributes = new { @class = "input-custom", @type = "file", @id = "validatedCustomFile" } })*@
+                                    
+                                    <span class="font-italic font13">Chấp nhận GIF, JPEG, PNG, BMP với kích thước tối đa 5.0 MB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-profile-update">
+                    <form>
+                        <div class="title-user">Thay đổi thông tin</div>
+                        <div class="row form-group align-items-center">
+                            <div class="col-3 txt-bold">Tên</div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    @*<input name="name" placeholder="Tên" type="text" class="form-control" value="@Model.user_name">*@
+                                    @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control", @value=Model.user_name } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group align-items-center">
+                            <div class="col-3 txt-bold">Giới tính</div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    @*<input name="sex" placeholder="Giới tính" type="text" class="form-control" value="@Model.user_sex">*@
+                                    @Html.EditorFor(model => model.user_sex, new { htmlAttributes = new { @class = "form-control", @value = Model.user_sex } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group align-items-center">
+                            <div class="col-3 txt-bold">Số điện thoại</div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    @*<input name="phone" placeholder="Số điện thoại" type="text" class="form-control" value="@Model.user_phone">*@
+                                    @Html.EditorFor(model => model.user_phone, new { htmlAttributes = new { @class = "form-control", @value = Model.user_phone } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group align-items-center">
+                            <div class="col-3 txt-bold">Email</div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    @*<input name="email" placeholder="Email" type="text" class="form-control" value="@Model.user_email">*@
+                                    @Html.EditorFor(model => model.user_email, new { htmlAttributes = new { @class = "form-control", @value = Model.user_email, @readonly="readonly" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group align-items-center">
+                            <div class="col-3 txt-bold">Mật khẩu</div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    @*<input name="password" placeholder="Tên" type="password" class="form-control" value="@Model.user_password">*@
+                                    @Html.EditorFor(model => model.user_password, new { htmlAttributes = new { @class = "form-control", @value = Model.user_password } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-blue-4 btn-block">Lưu thay đổi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

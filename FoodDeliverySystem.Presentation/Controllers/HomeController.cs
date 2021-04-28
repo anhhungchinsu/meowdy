@@ -22,30 +22,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(User user)
-        {
-            var listUser = _userRepository.GetAll();
-            var checkLogin = listUser.Where(x => x.user_email == user.user_email && x.user_password == user.user_password).FirstOrDefault();
-            if(checkLogin != null)
-            {
-                Session["userName"] = checkLogin.user_name.ToString();
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ViewBag.Notification = "Wrong dmm";
-            }
+            Session["location"] = "Hà Nội";
             return View();
         }
 

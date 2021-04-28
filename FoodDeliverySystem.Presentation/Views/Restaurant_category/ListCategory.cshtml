@@ -4,8 +4,9 @@
 </a>
 @foreach (var item in Model)
 {
-    <a href="#">
+    <a href="@Url.Action("ListCategoryRestaurant", "Restaurants", new { location = Session["location"], category= item.restaurant_category_id, page = 1})">
         <span class="category-item ">@item.restaurant_category_name</span>
     </a>
+    
 }
 

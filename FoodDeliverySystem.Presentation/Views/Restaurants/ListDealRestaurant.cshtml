@@ -7,7 +7,7 @@
 @foreach (var item in Model)
 {
     <div class="item-restaurant">
-        <a target="_blank" class="item-content" href="#">
+        <a target="_blank" class="item-content" href="/Restaurants/RestaurantDetail/@item.Restaurant.restaurant_id">
             <div class="img-restaurant">
                 <img src="~/Assets/images/@item.Restaurant.restaurant_image" />
             </div>
