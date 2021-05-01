@@ -4,11 +4,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using FoodDeliverySystem.BusinessLogicLayer.IServices;
 using FoodDeliverySystem.Models.DBContext;
 using FoodDeliverySystem.Presentation.ViewModels;
+using Newtonsoft.Json;
 
 namespace FoodDeliverySystem.Presentation.Controllers
 {
@@ -39,6 +41,27 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 }); ;
             }
             return PartialView(rs);
+        }
+
+        [HttpGet]
+        public JsonResult GetDiscount(string code)
+        {
+            try
+            {
+                var item = _discountRepository.FindAll(p => p.discount_code.Contains(code)).FirstOrDefault();
+                string rs = JsonConvert.SerializeObject(item, Formatting.None);
+                string data = Regex.Replace(rs, @"\\r\\n", "");
+                string finaldata = Regex.Replace(data, @"\\""", "");
+                return Json(finaldata, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    ex = e.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         protected override void Dispose(bool disposing)

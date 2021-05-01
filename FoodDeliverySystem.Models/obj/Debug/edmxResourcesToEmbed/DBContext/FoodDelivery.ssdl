@@ -75,6 +75,8 @@
     <Property Name="restaurant_email" Type="nvarchar" MaxLength="100" />
     <Property Name="restaurant_start_time" Type="time" Precision="0" />
     <Property Name="restaurant_end_time" Type="time" Precision="7" />
+    <Property Name="restaurant_longitude" Type="nvarchar(max)" />
+    <Property Name="restaurant_latitude" Type="nvarchar(max)" />
     <Property Name="restaurant_user_id" Type="smallint" />
     <Property Name="restaurant_category_id" Type="smallint" />
   </EntityType>

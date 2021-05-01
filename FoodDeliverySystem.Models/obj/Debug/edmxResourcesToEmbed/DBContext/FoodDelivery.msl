@@ -71,6 +71,8 @@
     <EntitySetMapping Name="Restaurants">
       <EntityTypeMapping TypeName="FoodDeliveryModel.Restaurant">
         <MappingFragment StoreEntitySet="Restaurant">
+          <ScalarProperty Name="restaurant_latitude" ColumnName="restaurant_latitude" />
+          <ScalarProperty Name="restaurant_longitude" ColumnName="restaurant_longitude" />
           <ScalarProperty Name="restaurant_id" ColumnName="restaurant_id" />
           <ScalarProperty Name="restaurant_name" ColumnName="restaurant_name" />
           <ScalarProperty Name="restaurant_image" ColumnName="restaurant_image" />

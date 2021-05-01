@@ -31,6 +31,8 @@ namespace FoodDeliverySystem.Models.DBContext
         public Nullable<System.TimeSpan> restaurant_end_time { get; set; }
         public Nullable<short> restaurant_user_id { get; set; }
         public Nullable<short> restaurant_category_id { get; set; }
+        public string restaurant_longitude { get; set; }
+        public string restaurant_latitude { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]

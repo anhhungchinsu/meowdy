@@ -63,50 +63,45 @@ var load = function (location, page) {
         },
         dataType: "json",
         success: function (result) {
-            if (result.data.length > 0) {
-                let rs = JSON.parse(result.data)
-                for (let item of rs) {
-                    let ht = '<div class="item-restaurant">' +
-                        '<a class="item-content" href="/Restaurants/RestaurantDetail/' + item.Restaurant.restaurant_id + '">' +
-                        '<div class="row no-gutters">' +
-                        '<div class="col-auto">' +
-                        '<div class="img-restaurant">' +
-                        '<img src="/Assets/images/' + item.Restaurant.restaurant_image + '" />' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="col">' +
-                        '<div class="info-restaurant">' +
-                        '<div class="name-res">' +
-                        '<img width="16" height="16" src="/Assets/images/shield.svg" />' +
-                        item.Restaurant.restaurant_name +
-                        '</div>' +
-                        '<div class="row">' +
-                        '<div class="col">' +
-                        '<div class="address-res mb-1">' +
-                        item.Restaurant.restaurant_address +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="item-res-info">' +
-                        '<img width="16" height="16" src="/Assets/images/label-price.svg" />' +
-                        'Tối thiểu 20k' +
-                        '<img width="16" height="16" src="/Assets/images/number-one.svg" />' +
-                        'Tốt nhất' +
-                        '</div>' +
-                        '<p class="content-promotion pt-1 pl-0 pb-0">' +
-                        '<img class="mr-1" width="17" height="17" src="/Assets/images/tags.svg" />' +
-                        item.Discounts[0].discount_content +
-                        '</p>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</a>' +
-                        '</div>'
-                    $('#near-list-restaurant').append(ht);
-                }
-            }
-            else {
-                alert('No More Records to Load')
+            let rs = JSON.parse(result.data)
+            for (let item of rs) {
+                let ht = '<div class="item-restaurant">' +
+                    '<a class="item-content" href="/Restaurants/RestaurantDetail/' + item.Restaurant.restaurant_id + '">' +
+                    '<div class="row no-gutters">' +
+                    '<div class="col-auto">' +
+                    '<div class="img-restaurant">' +
+                    '<img src="/Assets/images/' + item.Restaurant.restaurant_image + '" />' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col">' +
+                    '<div class="info-restaurant">' +
+                    '<div class="name-res">' +
+                    '<img width="16" height="16" src="/Assets/images/shield.svg" />' +
+                    item.Restaurant.restaurant_name +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<div class="col">' +
+                    '<div class="address-res mb-1">' +
+                    item.Restaurant.restaurant_address +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="item-res-info">' +
+                    '<img width="16" height="16" src="/Assets/images/label-price.svg" />' +
+                    'Tối thiểu 20k' +
+                    '<img width="16" height="16" src="/Assets/images/number-one.svg" />' +
+                    'Tốt nhất' +
+                    '</div>' +
+                    '<p class="content-promotion pt-1 pl-0 pb-0">' +
+                    '<img class="mr-1" width="17" height="17" src="/Assets/images/tags.svg" />' +
+                    item.Discounts[0].discount_content +
+                    '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>'
+                $('#near-list-restaurant').append(ht);
             }
         },
         error: function () {
@@ -241,6 +236,7 @@ $(document).ready(() => {
                     success: (data) => {
                         $('#selectedLocation').val(data.address.city)
                         $('#Btn-More-Location').trigger("click")
+                        localStorage.setItem("userAddress", data.display_name)
                     },
                     error: (e) => {
                         $('#selectedLocation').val("Hanoi")

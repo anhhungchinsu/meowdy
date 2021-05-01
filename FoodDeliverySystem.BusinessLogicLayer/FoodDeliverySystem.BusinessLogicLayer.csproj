@@ -55,18 +55,24 @@
     <Compile Include="BaseServices\IGenericRepository.cs" />
     <Compile Include="IServices\IFoodRepository.cs" />
     <Compile Include="IServices\IMenuRepository.cs" />
+    <Compile Include="IServices\IOrderDetailRepository.cs" />
+    <Compile Include="IServices\IOrderRepository.cs" />
     <Compile Include="IServices\IRestaurantCategoryRepository.cs" />
     <Compile Include="IServices\IDiscountRepository.cs" />
     <Compile Include="IServices\IDiscountDetailRepository.cs" />
     <Compile Include="IServices\IRestaurantRepository.cs" />
+    <Compile Include="IServices\IUserOrderRepository.cs" />
     <Compile Include="IServices\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DiscountDetailService.cs" />
     <Compile Include="Services\DiscountService.cs" />
     <Compile Include="Services\FoodService.cs" />
     <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\OrderDetailService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\RestaurantCategoryService.cs" />
     <Compile Include="Services\RestaurantService.cs" />
+    <Compile Include="Services\UserOrderService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

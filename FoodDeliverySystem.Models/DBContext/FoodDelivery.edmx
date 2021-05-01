@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FoodDeliveryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FoodDeliveryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Discount">
           <Key>
             <PropertyRef Name="discount_id" />
@@ -80,6 +80,8 @@
           <Property Name="restaurant_email" Type="nvarchar" MaxLength="100" />
           <Property Name="restaurant_start_time" Type="time" Precision="0" />
           <Property Name="restaurant_end_time" Type="time" Precision="7" />
+          <Property Name="restaurant_longitude" Type="nvarchar(max)" />
+          <Property Name="restaurant_latitude" Type="nvarchar(max)" />
           <Property Name="restaurant_user_id" Type="smallint" />
           <Property Name="restaurant_category_id" Type="smallint" />
         </EntityType>
@@ -321,8 +323,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FoodDeliveryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -417,6 +418,8 @@
           <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Restaurant1" FromRole="Restaurant" ToRole="Menu" />
           <NavigationProperty Name="Restaurant_category" Relationship="Self.FK_Restaurant_Restaurant_category" FromRole="Restaurant" ToRole="Restaurant_category" />
           <NavigationProperty Name="User" Relationship="Self.FK_Restaurant_User" FromRole="Restaurant" ToRole="User" />
+          <Property Name="restaurant_longitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="restaurant_latitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Restaurant_category">
           <Key>
@@ -740,6 +743,8 @@
           <EntitySetMapping Name="Restaurants">
             <EntityTypeMapping TypeName="FoodDeliveryModel.Restaurant">
               <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="restaurant_latitude" ColumnName="restaurant_latitude" />
+                <ScalarProperty Name="restaurant_longitude" ColumnName="restaurant_longitude" />
                 <ScalarProperty Name="restaurant_id" ColumnName="restaurant_id" />
                 <ScalarProperty Name="restaurant_name" ColumnName="restaurant_name" />
                 <ScalarProperty Name="restaurant_image" ColumnName="restaurant_image" />

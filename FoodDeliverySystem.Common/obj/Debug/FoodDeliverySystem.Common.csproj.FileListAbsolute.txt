@@ -9,6 +9,5 @@ C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\obj\Deb
 C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\obj\Debug\FoodDeliverySystem.Common.csproj.CopyComplete
 C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\obj\Debug\FoodDeliverySystem.Common.dll
 C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\obj\Debug\FoodDeliverySystem.Common.pdb
-C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\obj\Debug\FoodDeliverySystem.Common.csprojAssemblyReference.cache
 C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\bin\Debug\Newtonsoft.Json.dll
 C:\Users\hanth\source\repos\FoodDeliverySystem\FoodDeliverySystem.Common\bin\Debug\Newtonsoft.Json.xml

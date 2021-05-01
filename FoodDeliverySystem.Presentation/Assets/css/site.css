@@ -860,6 +860,15 @@
         position: relative;
     }
 
+.item-restaurant-row .item-restaurant-desc {
+    font-size: 13px;
+    color: #464646;
+    display: block;
+    padding-top: 5px;
+    line-height: 1.6em;
+}
+
+
         .menu-restaurant-list .item-restaurant-row .item-restaurant-img button {
             background: none !important;
             color: inherit;

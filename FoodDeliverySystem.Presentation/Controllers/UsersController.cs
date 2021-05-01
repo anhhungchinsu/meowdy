@@ -113,6 +113,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
             var checkLogin = listUser.Where(x => x.user_email == user.user_email && x.user_password == user.user_password).FirstOrDefault();
             if (checkLogin != null)
             {
+                Session["userId"] = checkLogin.user_id.ToString();
                 Session["userName"] = checkLogin.user_name.ToString();
                 Session["userImg"] = checkLogin.user_image.ToString();
                 Session["userEmail"] = checkLogin.user_email.ToString();

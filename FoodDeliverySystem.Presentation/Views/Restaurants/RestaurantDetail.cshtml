@@ -47,7 +47,7 @@
             </div>
             <div class="utility-restaurant clearfix">
                 <div class="utility-item">
-                    <div class="utility-title">Phí dịch vụ</div>
+                    <div class="utility-title">Phí dịch vụ @Model.Restaurant.restaurant_latitude</div>
                     <div class="utility-content">
                         <span class="txt-bold txt-red"> 0.0% Phí phục vụ </span>
                     </div>
@@ -117,6 +117,7 @@
                                                 </div>
                                                 <div class="col item-restaurant-info">
                                                     <h2 data-name="product_name" class="item-restaurant-name">@f.food_name</h2>
+                                                    <div class="item-restaurant-desc">@f.food_note</div>
                                                     <div class="item-restaurant-total">
                                                         Đã được đặt
                                                         <span class="txt-bold">&nbsp;@f.food_served+&nbsp;</span>lần
@@ -148,19 +149,19 @@
             </div>
         </div>
     </div>
-    <div class="modal fade modal-order" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade modal-order" id="exampleModalCenter" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-order-detail">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận đơn hàng</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="order-left">
                         <div class="map-order">
-                            <div class="embed-responsive map-order">
+                            <div class="embed-responsive map-order" id="map-order">
                                 <div id="osm-map">
 
                                 </div>
@@ -169,8 +170,8 @@
                         <div class="direction-content">
                             <div class="direction-info">
                                 <div class="direction-from">
-                                    <div class="direction-name">Chim Siêu To Khổng Lồ - Nguyên Xá</div>
-                                    <div class="direction-name">63 Nguyên Xá, P. Cầu Diễn, Nam Từ Liêm, Hà Nội</div>
+                                    <div class="direction-name">@Model.Restaurant.restaurant_name</div>
+                                    <div class="direction-name">@Model.Restaurant.restaurant_address</div>
                                 </div>
                                 <div class="direction-to">
                                     <div>
@@ -179,55 +180,29 @@
                                             <span> - 0354549969 </span>
                                         </div>
                                         <div class="direction-address">
-                                            <span> 132/68 Đường Cầu Diễn, Minh Khai, Từ Liêm, Hà Nội, Vietnam</span>
+                                            <span id="userAddress"> 132/68 Đường Cầu Diễn, Minh Khai, Từ Liêm, Hà Nội, Vietnam</span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="direction-time">
-                                    <span class="txt-bold"> Dự kiến:  21:20 - 28/04 - </span>
-                                    <span class="txt-red">0.2km</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="order-right">
                         <p class="title-popup-order">Chi tiết đơn hàng</p>
-                        <div class="order-list">
-                            <div class="order-item">
-                                <span class="order-item-number">3</span>
-                                <div class="order-item-info">
-                                    <div class="order-item-name"><span class="txt-bold">Chim cút chiên x1&nbsp;</span></div>
-                                </div>
-                                <div class="order-item-price">
-                                    54,000
-                                    <span class="format-price">đ</span>
-                                </div>
-                            </div>
-                            <div class="order-item">
-                                <span class="order-item-number">3</span>
-                                <div class="order-item-info">
-                                    <div class="order-item-name"><span class="txt-bold">Chim cút chiên x1&nbsp;</span></div>
-                                </div>
-                                <div class="order-item-price">
-                                    54,000
-                                    <span class="format-price">đ</span>
-                                </div>
-                            </div>
+                        <div class="order-list" id="orderList">
                         </div>
                         <div class="info-order">
                             <div class="row">
-                                <div class="col">Tổng cộng <span class="txt-bold">4</span> phần</div>
-                                <div class="col-auto txt-bold">214,000<span class="format-price">đ</span></div>
+                                <div class="col">Tổng cộng <span class="txt-bold" id="totalCart">4</span> phần</div>
+                                <div class="col-auto txt-bold"><span id="cartSubTotal">214,000</span><span class="format-price">đ</span></div>
                             </div>
                             <div class="row">
                                 <div class="col">Phí dịch vụ: &nbsp;</div>
-                                <div class="col-auto">4,000<span class="format-price">đ</span></div>
+                                <div class="col-auto"><span id="serviceCharge">4000</span><span class="format-price">đ</span></div>
                             </div>
                             <div class="row">
-                                <div class="col">Phí vận chuyển: <span class="txt-red">0.2 km</span></div>
-                                <div class="col-auto">&nbsp;15,000<span class="format-price">đ</span></div>
+                                <div class="col">Phí vận chuyển: <span id="cart-distance" class="txt-red"></span></div>
+                                <div class="col-auto"><span id="moneyDistance">&nbsp</span><span class="format-price">đ</span></div>
                             </div>
                         </div>
                         <div class="discount-code">
@@ -235,14 +210,14 @@
                                 <div class="col">
                                     <span class="text">Mã khuyến mãi</span>
                                     <input type="text" class="input-code" placeholder="Nhập mã" value="">
-                                    <button type="button">Áp dụng</button>
+                                    <button id="btnCode" type="button">Áp dụng</button>
                                 </div>
                             </div>
                         </div>
                         <div class="padding-10 txt-bold font16">
                             <div class="row">
                                 <div class="col"><span>Tổng cộng</span></div>
-                                <div class="col-auto">233,000<span class="format-price">đ</span></div>
+                                <div class="col-auto"><span id="totalMoney"></span><span class="format-price">đ</span></div>
                             </div>
                         </div>
                         <div class="payment-methods">
@@ -252,12 +227,12 @@
                             </div>
                         </div>
                         <div class="order-note">
-                            <textarea placeholder="Ví dụ: Tòa nhà ABC, lầu 8, cho thêm 2 ly nhựa...." name="note"></textarea>
+                            <textarea id="order-note" placeholder="Ví dụ: Tòa nhà ABC, lầu 8, cho thêm 2 ly nhựa...." name="note"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="submit-order">
+                    <div class="submit-order" id="submit-order">
                         Đặt hàng
                     </div>
                 </div>
@@ -277,6 +252,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+
+    function calcMoneyByDistance(distance) {
+        if (distance < 3) {
+            return 30000
+        } else {
+            return 30000 + 5000 * (distance - 3).toFixed(2)
+        }
+    }
+
+    function updateTotalMoney() {
+        let cartSubTotal = parseFloat($('#cartSubTotal').text().replace(/\D/g, ''))
+        let serviceCharge = parseFloat($('#serviceCharge').text())
+        let moneyDistance = parseFloat($('#moneyDistance').text())
+        let rs = cartSubTotal + serviceCharge + moneyDistance
+        if ($('#discountValue').length) {
+            rs -= parseFloat($('#discountValue').text())
+        }
+        $('#totalMoney').text(rs)
+    }
+
     $(document).ready(function () {
         // Initialize Smart Cart
         $('#smartcart').smartCart();
@@ -287,41 +282,142 @@
             }
         })
 
-        $('#exampleModalCenter').on('shown.bs.modal', function () {
-            const element = $('#osm-map').get(0)
-            element.style = 'height:100%;';
-            if (!navigator.geolocation) {
-                alert("Xin hãy bật quyền location '.'")
-            } else {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    const map = L.map(element)
-                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    }).addTo(map)
-                    const target = L.latLng(latitude, longitude)
-                    const target2 = L.latLng(21.0379746, 105.8800013)
-
-                    var control = L.Routing.control({
-                        waypoints: [
-                            L.latLng(latitude, longitude),
-                            L.latLng(21.0379746, 105.8800013)
-                        ],
-                        router: new L.Routing.osrmv1({
-                            profile: 'car'
-                        }),
-                        //geocoder: L.Control.Geocoder.nominatim({})
-                    }).addTo(map)
+        $('#closeModal').on('click', function () {
+            $('#map-order').empty()
+            $('#orderList').empty()
+            $('#rowDiscount').empty()
+            $('#exampleModalCenter').on('hidden.bs.modal', function () {
+                $('#exampleModalCenter').modal('dispose')
+            });
+        })
 
 
-                    map.setView(target, 14)
-                    L.marker(target2).addTo(map)
-                    L.marker(target).addTo(map)
-                }, () => {
+
+        $('.sc-cart-checkout').on('click', function () {
+            $('#map-order').append("<div id='osm-map'></div>")
+            $('#exampleModalCenter').on('shown.bs.modal', function () {
+                let element = $('#osm-map').get(0)
+                element.style = 'height:100%;';
+                if (!navigator.geolocation) {
                     alert("Xin hãy bật quyền location '.'")
-                })
+                } else {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        let latitude = position.coords.latitude;
+                        let longitude = position.coords.longitude;
+                        let map = L.map(element)
+                        let target = L.latLng(latitude, longitude)
+                        let target2 = L.latLng(21.0379746, 105.8800013)
+                        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        }).addTo(map)
+                        let control = L.Routing.control({
+                            waypoints: [
+                                L.latLng(latitude, longitude),
+                                L.latLng(21.0379746, 105.8800013)
+                            ],
+                            router: new L.Routing.osrmv1({
+                                profile: 'car'
+                            }),
+                        }).addTo(map)
+
+                        control.on('routesfound', function (e) {
+                            let routes = e.routes
+                            let summary = routes[0].summary
+                            alert('Tổng quãng đường ' + summary.totalDistance / 1000 + ' km nên là hãy kiên nhẫn đợi ' + Math.round(summary.totalTime % 3600 / 60) + ' phút nhé ^^')
+                            $('#cart-distance').text(summary.totalDistance / 1000 + ' km')
+                            $('#moneyDistance').text(calcMoneyByDistance(summary.totalDistance / 1000))
+                            updateTotalMoney()
+                        })
+
+                        map.setView(target, 14)
+                        L.marker(target2).addTo(map)
+                        L.marker(target).addTo(map)
+                        //************************************************************
+                        $('#totalCart').text($('.sc-cart-count').text())
+                        $('#cartSubTotal').text($('.sc-cart-subtotal').text())
+                        let cartList = JSON.parse($('#cart_list').val())
+                        for (let item of cartList) {
+                            let ht = '<div class="order-item">' +
+                                '<span class="order-item-number">' + item.product_quantity + '</span>' +
+                                '<div class="order-item-info">' +
+                                '<div class="order-item-name"><span class="txt-bold">' + item.product_name + '&nbsp;</span></div>' +
+                                '</div>' +
+                                '<div class="order-item-price">' +
+                                item.product_price * item.product_quantity +
+                                '<span class="format-price">đ</span>' +
+                                '</div>' +
+                                '</div>'
+                            $('#orderList').append(ht)
+                        }
+                        $('#userAddress').text(localStorage.getItem('userAddress'))
+                    }, () => {
+                        alert("Xin hãy bật quyền location '.'")
+                    })
+                }
+            })
+        })
+
+        $('#btnCode').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetDiscount", "Discounts")',
+                contentType: "application/json; charset=utf-8",
+                data: {
+                    code: $('.input-code').val()
+                },
+                dataType: "json",
+                success: function (result) {
+                    let rs = JSON.parse(result)
+                    let ht = '<div id="rowDiscount" class="row">' +
+                        '<div class="col">Mã khuyến mãi: &nbsp;</div>' +
+                        '<div class="col-auto">- <span id="discountValue">' + rs.discount_value+'</span><span class="format-price">đ</span></div>' +
+                        '</div>'
+                    $('.info-order').append(ht)
+                    updateTotalMoney()
+                },
+                error: function () {
+                    console.log("get discount");
+                }
+            })
+        })
+
+        $('#submit-order').on('click', () => {
+            let Order = {
+                'order_status': "make order",
+                'order_note': $('#order-note').val(),
+                'order_payment_method': "cash",
+                'order_service_charge': $('#serviceCharge').text(),
+                'order_transport_fee': $('#moneyDistance').text(),
+                'order_discount': $('.input-code').val()
             }
+            let cartList = JSON.parse($('#cart_list').val())
+            let Order_details = []
+            for (let item of cartList) {
+                let Order_detail = {
+                    'Order_detail_food_id' : item.product_id,
+                    'Order_detail_quantity' : item.product_quantity
+                }
+                Order_details.push(Order_detail)
+            }
+
+            let sendObject = {
+                'Order': Order,
+                'restaurantId': @Model.Restaurant.restaurant_category_id,
+                'Order_details': Order_details
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("checkout", "Checkout")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(sendObject),
+                success: function () {
+                    alert("Đặt hàng thành công!!!")
+                    $('#closeModal').click()
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
         })
     });
 </script>

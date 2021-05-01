@@ -91,6 +91,8 @@
     <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Restaurant1" FromRole="Restaurant" ToRole="Menu" />
     <NavigationProperty Name="Restaurant_category" Relationship="Self.FK_Restaurant_Restaurant_category" FromRole="Restaurant" ToRole="Restaurant_category" />
     <NavigationProperty Name="User" Relationship="Self.FK_Restaurant_User" FromRole="Restaurant" ToRole="User" />
+    <Property Name="restaurant_longitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="restaurant_latitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Restaurant_category">
     <Key>
