@@ -398,6 +398,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Restaurants\ListCategoryRestaurant.cshtml" />
     <Content Include="Views\Restaurants\ListRestaurantByDeal.cshtml" />
+    <Content Include="Views\Users\OrderInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FoodDeliverySystem.Models.DBContext.Order>
+
+@{
+    ViewBag.Title = "OrderInformation";
+}
+
+<div class="container-cus">
+    <h2 class="text-center text-uppercase font-weight-bold my-5">Lịch sử đơn hàng</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                Mã đơn
+            </th>
+            <th>
+                Ngày tạo
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th>
+                Thanh toán
+            </th>
+            <th>
+                Dịch vụ
+            </th>
+            <th>
+                Phí vận chuyển
+            </th>
+            <th>
+                Mã giảm giá
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_created_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_payment_method)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_service_charge)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_transport_fee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.order_discount)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

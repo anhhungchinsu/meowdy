@@ -236,6 +236,8 @@ $(document).ready(() => {
                     success: (data) => {
                         $('#selectedLocation').val(data.address.city)
                         $('#Btn-More-Location').trigger("click")
+                        sessionStorage.setItem('latitude', latitude)
+                        sessionStorage.setItem('longitude', longitude)
                         localStorage.setItem("userAddress", data.display_name)
                     },
                     error: (e) => {

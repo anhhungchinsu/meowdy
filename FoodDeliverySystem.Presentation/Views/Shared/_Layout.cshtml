@@ -48,7 +48,7 @@
                         <div class="user-acc col-auto">
                             @if (Session["userName"] == null)
                             {
-                                @Html.ActionLink("Đăng nhập", "Index", "Users", new { area = "" }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Đăng nhập", "Index", "Users", new { ReturnUrl = Request.RawUrl }, new { @class = "btn btn-primary" })
                             }
                             else
                             {

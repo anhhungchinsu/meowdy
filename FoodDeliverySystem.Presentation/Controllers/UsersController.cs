@@ -16,15 +16,19 @@ namespace FoodDeliverySystem.Presentation.Controllers
     {
         private FoodDeliveryContext db = new FoodDeliveryContext();
         private readonly IUserRepository _userRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository, IOrderRepository orderRepository)
         {
             _userRepository = userRepository;
+            _orderRepository = orderRepository;
         }
         // GET: Users
         [HttpGet]
-        public ActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Index(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -107,7 +111,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(User user)
+        public ActionResult Index(User user, string returnUrl)
         {
             var listUser = _userRepository.GetAll();
             var checkLogin = listUser.Where(x => x.user_email == user.user_email && x.user_password == user.user_password).FirstOrDefault();
@@ -117,7 +121,8 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 Session["userName"] = checkLogin.user_name.ToString();
                 Session["userImg"] = checkLogin.user_image.ToString();
                 Session["userEmail"] = checkLogin.user_email.ToString();
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
+                return Redirect(returnUrl);
             }
             else
             {
@@ -143,6 +148,12 @@ namespace FoodDeliverySystem.Presentation.Controllers
             var name = Session["userEmail"].ToString();
             var user = _userRepository.FindAll(x => x.user_email == name).FirstOrDefault();
             return RedirectToAction("Details", "Users", new { id = user.user_id});
+        }
+
+        public ActionResult OrderInformation()
+        {
+            var order = _orderRepository.GetAll();
+            return View(order);
         }
 
         protected override void Dispose(bool disposing)

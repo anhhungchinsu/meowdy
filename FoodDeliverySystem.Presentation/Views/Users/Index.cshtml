@@ -4,7 +4,7 @@
 }
 
 <div class="container clearfix text-center-cus mt-5">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
     {
         @Html.AntiForgeryToken()
     <form>

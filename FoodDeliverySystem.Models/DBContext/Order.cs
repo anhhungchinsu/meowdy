@@ -30,6 +30,8 @@ namespace FoodDeliverySystem.Models.DBContext
         public Nullable<decimal> order_service_charge { get; set; }
         public Nullable<decimal> order_transport_fee { get; set; }
         public string order_discount { get; set; }
+        public string order_longitude { get; set; }
+        public string order_latitude { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]

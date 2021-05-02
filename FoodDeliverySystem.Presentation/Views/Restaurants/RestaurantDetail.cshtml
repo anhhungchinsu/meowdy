@@ -388,7 +388,9 @@
                 'order_payment_method': "cash",
                 'order_service_charge': $('#serviceCharge').text(),
                 'order_transport_fee': $('#moneyDistance').text(),
-                'order_discount': $('.input-code').val()
+                'order_discount': $('.input-code').val(),
+                'order_longitude': sessionStorage.getItem('longitude'),
+                'order_latitude': sessionStorage.getItem('latitude')
             }
             let cartList = JSON.parse($('#cart_list').val())
             let Order_details = []
