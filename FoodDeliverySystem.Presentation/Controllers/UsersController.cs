@@ -121,8 +121,14 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 Session["userName"] = checkLogin.user_name.ToString();
                 Session["userImg"] = checkLogin.user_image.ToString();
                 Session["userEmail"] = checkLogin.user_email.ToString();
-                //return RedirectToAction("Index", "Home");
-                return Redirect(returnUrl);
+                if(!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+
+                }else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {

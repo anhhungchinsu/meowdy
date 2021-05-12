@@ -43,6 +43,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 {
                     user_id = (short)restaurantId,
                     user_order_created_date = DateTime.Now,
+                    user_order_pay = 1,
                     order_id = Order.order_id
                 };
                 _userOrderRepository.Add(restaurantOrder);
@@ -50,6 +51,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                 {
                     user_id = (short)Convert.ToInt32(Session["userId"]),
                     user_order_created_date = DateTime.Now,
+                    user_order_pay = 2,
                     order_id = Order.order_id
                 };
                 _userOrderRepository.Add(customerOrder);

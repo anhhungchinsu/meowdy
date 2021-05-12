@@ -232,9 +232,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="submit-order" id="submit-order">
+                    <button class="submit-order" id="submit-order">
                         Đặt hàng
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -278,7 +278,7 @@
 
         $('#btnAddFood').on("click", function () {
             if (!$('#loginedName').text()) {
-                window.location.href = "https://localhost:44320/Users"
+                window.location.href = "@Url.Action("Index","Users")"
             }
         })
 
@@ -298,6 +298,7 @@
             $('#exampleModalCenter').on('shown.bs.modal', function () {
                 let element = $('#osm-map').get(0)
                 element.style = 'height:100%;';
+                document.getElementById("submit-order").disabled = true;
                 if (!navigator.geolocation) {
                     alert("Xin hãy bật quyền location '.'")
                 } else {
@@ -306,27 +307,29 @@
                         let longitude = position.coords.longitude;
                         let map = L.map(element)
                         let target = L.latLng(latitude, longitude)
-                        let target2 = L.latLng(21.0379746, 105.8800013)
+                        let target2 = L.latLng(@Model.Restaurant.restaurant_latitude, @Model.Restaurant.restaurant_longitude)
                         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         }).addTo(map)
                         let control = L.Routing.control({
                             waypoints: [
                                 L.latLng(latitude, longitude),
-                                L.latLng(21.0379746, 105.8800013)
+                                L.latLng(@Model.Restaurant.restaurant_latitude, @Model.Restaurant.restaurant_longitude)
                             ],
                             router: new L.Routing.osrmv1({
                                 profile: 'car'
                             }),
                         }).addTo(map)
 
-                        control.on('routesfound', function (e) {
+                    control.on('routesfound', function (e) {
+                        console.log(e)
                             let routes = e.routes
                             let summary = routes[0].summary
                             alert('Tổng quãng đường ' + summary.totalDistance / 1000 + ' km nên là hãy kiên nhẫn đợi ' + Math.round(summary.totalTime % 3600 / 60) + ' phút nhé ^^')
                             $('#cart-distance').text(summary.totalDistance / 1000 + ' km')
                             $('#moneyDistance').text(calcMoneyByDistance(summary.totalDistance / 1000))
                             updateTotalMoney()
+                            document.getElementById("submit-order").disabled = false;
                         })
 
                         map.setView(target, 14)
@@ -383,7 +386,7 @@
 
         $('#submit-order').on('click', () => {
             let Order = {
-                'order_status': "make order",
+                'order_status': "Pending",
                 'order_note': $('#order-note').val(),
                 'order_payment_method': "cash",
                 'order_service_charge': $('#serviceCharge').text(),
@@ -404,7 +407,7 @@
 
             let sendObject = {
                 'Order': Order,
-                'restaurantId': @Model.Restaurant.restaurant_category_id,
+                'restaurantId': @Model.Restaurant.restaurant_user_id,
                 'Order_details': Order_details
             }
             $.ajax({

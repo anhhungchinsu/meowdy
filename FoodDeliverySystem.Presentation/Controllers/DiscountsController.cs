@@ -38,7 +38,7 @@ namespace FoodDeliverySystem.Presentation.Controllers
                     Discount = item,
                     Discount_Details = _discountDetailRepository.findById(item.discount_id),
                     Count = _discountDetailRepository.findById(item.discount_id).Count()
-                }); ;
+                }); 
             }
             return PartialView(rs);
         }
