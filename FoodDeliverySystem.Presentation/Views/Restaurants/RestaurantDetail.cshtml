@@ -393,7 +393,8 @@
                 'order_transport_fee': $('#moneyDistance').text(),
                 'order_discount': $('.input-code').val(),
                 'order_longitude': sessionStorage.getItem('longitude'),
-                'order_latitude': sessionStorage.getItem('latitude')
+                'order_latitude': sessionStorage.getItem('latitude'),
+                'order_total': $('#totalMoney').text()
             }
             let cartList = JSON.parse($('#cart_list').val())
             let Order_details = []

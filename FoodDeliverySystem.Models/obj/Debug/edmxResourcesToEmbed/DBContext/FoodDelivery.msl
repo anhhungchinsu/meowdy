@@ -48,6 +48,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="FoodDeliveryModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="order_total" ColumnName="order_total" />
           <ScalarProperty Name="order_latitude" ColumnName="order_latitude" />
           <ScalarProperty Name="order_longitude" ColumnName="order_longitude" />
           <ScalarProperty Name="order_id" ColumnName="order_id" />

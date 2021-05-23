@@ -9,8 +9,8 @@
 
 namespace FoodDeliverySystem.Models.DBContext
 {
-    using Newtonsoft.Json;
-    using System;
+	using Newtonsoft.Json;
+	using System;
     using System.Collections.Generic;
     
     public partial class User_order
