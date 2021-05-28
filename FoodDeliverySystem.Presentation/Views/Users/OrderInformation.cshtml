@@ -25,10 +25,7 @@
                 Thanh toán
             </th>
             <th>
-                Dịch vụ
-            </th>
-            <th>
-                Phí vận chuyển
+                Tổng tiền
             </th>
             <th>
                 Mã giảm giá
@@ -45,9 +42,25 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.order_created_date)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.order_status)
-                </td>
+				<td>
+					@if (item.order_status == "Order canceled")
+					{
+						<span class="badge-danger">@item.order_status</span>
+					}
+					@if (item.order_status == "Order confirmed")
+					{
+						<span class="badge-primary">@item.order_status</span>
+					}
+					@if (item.order_status == "Pending")
+					{
+						<span class="badge-warning">@item.order_status</span>
+					}
+					@if (item.order_status == "Completed")
+					{
+						<span class="badge-success">@item.order_status</span>
+					}
+
+				</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.order_note)
                 </td>
@@ -55,10 +68,7 @@
                     @Html.DisplayFor(modelItem => item.order_payment_method)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.order_service_charge)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.order_transport_fee)
+                    @Html.DisplayFor(modelItem => item.order_total)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.order_discount)

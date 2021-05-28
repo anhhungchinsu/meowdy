@@ -158,7 +158,8 @@ namespace FoodDeliverySystem.Presentation.Controllers
 
         public ActionResult OrderInformation()
         {
-            var order = _orderRepository.GetAll();
+            short id = short.Parse(Session["userId"].ToString());
+            var order = db.Orders.Where(x => x.User_order.Any(y => y.user_id == id));
             return View(order);
         }
 
