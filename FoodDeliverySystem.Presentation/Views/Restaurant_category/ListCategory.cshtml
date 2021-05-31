@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<FoodDeliverySystem.Models.DBContext.Restaurant_category>
-<a href="/ha-noi/danh-sach-dia-diem-giao-tan-noi">
-    <span class="category-item ">All</span>
-</a>
 @foreach (var item in Model)
 {
     <a href="@Url.Action("ListCategoryRestaurant", "Restaurants", new { location = Session["location"], category= item.restaurant_category_id, page = 1})">
